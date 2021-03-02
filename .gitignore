@@ -3,14 +3,16 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+/M17_Food4U/Web.config
+/M17_Food4U/Web.Debug.config
+/M17_Food4U/Web.Release.config
+
 # User-specific files
 *.rsuser
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-
-/M17_Food4U/Web.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
