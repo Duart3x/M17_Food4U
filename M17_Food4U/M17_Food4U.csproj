@@ -150,6 +150,13 @@
     <Content Include="master_page.Master" />
     <None Include="packages.config" />
     <Content Include="restaurant\restaurant_master.Master" />
+    <Content Include="Web_model.config" />
+    <Content Include="Web_model.Debug.config">
+      <DependentUpon>Web_model.config</DependentUpon>
+    </Content>
+    <Content Include="Web_model.Release.config">
+      <DependentUpon>Web_model.config</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

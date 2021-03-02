@@ -10,6 +10,8 @@
 *.userosscache
 *.sln.docstates
 
+/M17_Food4U/Web.config
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
