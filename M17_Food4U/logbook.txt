@@ -1,0 +1,53 @@
+﻿
+
+██████╗░██╗░░░██╗░█████╗░██████╗░████████╗██████╗░██╗░░██╗
+██╔══██╗██║░░░██║██╔══██╗██╔══██╗╚══██╔══╝╚════██╗╚██╗██╔╝
+██║░░██║██║░░░██║███████║██████╔╝░░░██║░░░░█████╔╝░╚███╔╝░
+██║░░██║██║░░░██║██╔══██║██╔══██╗░░░██║░░░░╚═══██╗░██╔██╗░
+██████╔╝╚██████╔╝██║░░██║██║░░██║░░░██║░░░██████╔╝██╔╝╚██╗
+╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝
+
+
+
+#######################################
+### ESQUEMA FUNCIONAL DA SITUAÇÃO  ####
+#######################################
+
+[CLIENTES]
+- Ver Menus / Resturantes disponiveis no site
+- Adicionar Menus a um carrinho 
+- Fazer checkout dos produtos do carrinho
+- Visualisar estado da encomenda
+- Ver histórico dos pedidos
+- Depositar Dinheiro || Levantar Dinheiro
+
+[DONOS RESTAURANTES]
+- Adicionar restaurante;
+- Gerir menus dos restaurantes;
+	- Adicionar Menu
+	- Editar Menu
+	- Colocar Menu indisponível
+	- "Eliminar" Menu
+- Aceitar / Recusar Pedidos 
+
+
+[[LEGENDA DOS PEDIDOS]]
+1-Em processamento 
+2-A ser preparado
+3-A caminho 
+4-Entregue
+5-Cancelado
+
+[ESTAFETAS]
+- Ver pedidos da cidade deles ou da cidade que escolherem
+- Aceitar pedido
+- Alterar o estado do pedido para (2,3,4,5)
+
+[ADMINISTRADOR]
+- Gerir Utilizadores
+	- Bloquear
+	- Remover
+	- Ver histórico de encomendas
+	- Ver histórico de depósitos e levantamentos e pagamentos
+- Ver pedidos
+- (Ver carrinhos de compras [Enviar notificação])
