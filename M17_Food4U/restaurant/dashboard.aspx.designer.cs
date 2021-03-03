@@ -15,13 +15,31 @@ namespace M17_Food4U.restaurant
     {
 
         /// <summary>
-        /// dp_estado_pedidos control.
+        /// check_espera control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dp_estado_pedidos;
+        protected global::System.Web.UI.WebControls.CheckBox check_espera;
+
+        /// <summary>
+        /// check_aserpreparados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check_aserpreparados;
+
+        /// <summary>
+        /// check_concluidos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check_concluidos;
 
         /// <summary>
         /// txt_datepicker control.
@@ -31,6 +49,24 @@ namespace M17_Food4U.restaurant
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_datepicker;
+
+        /// <summary>
+        /// txt_hour_start control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_hour_start;
+
+        /// <summary>
+        /// txt_hour_end control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_hour_end;
 
         /// <summary>
         /// dgv_pedidos control.

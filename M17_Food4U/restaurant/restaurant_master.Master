@@ -35,10 +35,10 @@
         <div>
              <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
                 <div class="container-fluid mycontainer d-flex">
-                    <div>
+                    <div class="restaurant_master_nav">
                         <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/index.aspx" id="btn_home">Food4U</a>
                         <a class="navbar-brand" style="font-family: 'Roboto', sans-serif" href="/restaurant/dashboard.aspx" id="btn_dashboard">Dashboard</a>
-                        <asp:DropDownList ID="dp_restaurantes" OnSelectedIndexChanged="dp_restaurantes_SelectedIndexChanged" AutoPostBack="true" runat="server">
+                        <asp:DropDownList ID="dp_restaurantes" CssClass="form-control dp_restaurantes" AutoPostBack="true" runat="server">
 
                         </asp:DropDownList>
                     </div>

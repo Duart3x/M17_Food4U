@@ -211,3 +211,44 @@ h2 {
         display: none;
     }
 }
+.restaurant_master_nav{
+    display:flex;
+    width:90%;
+    align-items:center;
+}
+.dp_restaurantes {
+    width: 50% !important;
+}
+.restaurant_checks {
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant_inputs{
+    display: flex;
+    align-items:center;
+}
+
+.restaurant_input{
+    display: flex;
+    width: 25%;
+    align-items:center;
+    margin-right: 10px;
+}
+
+@media (max-width: 1219px){
+    .restaurant_inputs {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .restaurant_input {
+        display: flex;
+        margin-top: 10px;
+        width: 90%;
+        align-items: center;
+    }
+    .dp_restaurantes{
+        width: 100% !important;
+    }
+}

@@ -31,6 +31,17 @@ namespace M17_Food4U.Models
             this.id = id;
         }
 
+        internal static DataTable ListarRestaurantesUser(int id_user)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $@"SELECT * FROM restaurants WHERE owner = {id_user}";
+
+            return bd.devolveSQL(sql);
+
+            
+        }
+
         public static DataTable ListarRestaurantesDiponiveis()
         {
             BaseDados bd = new BaseDados();
@@ -161,24 +172,54 @@ namespace M17_Food4U.Models
            
         }
 
-        public DataTable ListarPedidosRestaurante(List<int> estados = null)
+        public DataTable ListarPedidosRestaurante(List<int> estados = null, DateTime? data = null, DateTime? Inicio = null, DateTime? Fim = null)
         {
             string lista = "'1','2','3'";
             if (estados != null)
             {
-                lista = "";
-                for (int i = 0; i < estados.Count; i++)
+                if (estados.Count > 0)
                 {
-                    int estado = estados[i];
-                    if(i != estados.Count -1)
-                        lista += $@"{estado},";
-                    else
-                        lista += $@"{estado}";
-                }
+                    lista = "";
+                    for (int i = 0; i < estados.Count; i++)
+                    {
+                        int estado = estados[i];
+                        if (i != estados.Count - 1)
+                            lista += $@"{estado},";
+                        else
+                            lista += $@"{estado}";
+                    }
+                }                
             }
-            string sql = $@"SELECT * FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id WHERE menus.restaurant = {this.id} AND orders_menus.[state] in ({lista})";
+            /*
+            orders_menus
+            - Em espera 
+            - A ser preparada
+            - Concluida
+            */
 
+            string sql = $@"SELECT menus.id as ID, menus.title as Menu,  orders.createDate as [data] ,case
+                            when orders_menus.[state]=1 then 'Em espera'
+                            when orders_menus.[state]=2 then 'A ser preparado'
+                            when orders_menus.[state]=3 then 'Concluído'
+                        end as estado 
+                        FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id INNER JOIN orders on orders_menus.[order] = orders.id
+                        WHERE menus.restaurant = {this.id} AND orders_menus.[state] in ({lista})";
 
+            if (data != null)
+            {
+                if (Inicio != null)
+                    Inicio = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, Inicio.Value.Hour, Inicio.Value.Minute, Inicio.Value.Second);
+                else
+                    Inicio = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, 0, 0, 0);
+
+                if (Fim != null)
+                    Fim = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, Fim.Value.Hour, Fim.Value.Minute, Fim.Value.Second);
+                else
+                    Fim = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, 23, 59, 59);
+
+                sql += $" AND orders.createDate between CONVERT(datetime,'{Inicio.ToString()}') AND CONVERT(datetime,'{Fim.ToString()}')";
+
+            }
 
             DataTable dados = bd.devolveSQL(sql);
 

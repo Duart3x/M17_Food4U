@@ -29,7 +29,7 @@ namespace M17_Food4U
 
                 //Iniciar Sessão
                 Session["nome"] = dados.Rows[0]["name"].ToString();
-                Session["id"] = dados.Rows[0]["id"].ToString();
+                Session["id_user"] = dados.Rows[0]["id"].ToString();
                 Session["perfil"] = dados.Rows[0]["perfil"].ToString();
 
                 Response.Redirect("/index.aspx");
