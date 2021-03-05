@@ -114,6 +114,7 @@ orders_menus
 CREATE TABLE orders_menus(
 	id int identity primary key,
 	[menu] int references menus(id),
+	[quantity] INT NOT NULL check([quantity]>(0) AND [quantity]<=(5)),
 	[order] int references orders(id),
 	[state] int DEFAULT 1 check ([state] in ('1','2','3'))
 );
