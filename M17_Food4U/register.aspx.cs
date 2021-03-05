@@ -156,7 +156,7 @@ namespace M17_Food4U
             if (morada == String.Empty || morada.Trim().Length <= 3)
                 throw new Exception("A morada indicada não é válida. Deve ter pelo menos 3 letras.");
 
-            //capa
+
             if (FileUpload1.HasFile == false)
                 throw new Exception("Tem de indicar o ficheiro da foto do restaurante");
             if (FileUpload1.PostedFile.ContentType != "image/jpeg" &&

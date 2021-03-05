@@ -35,7 +35,14 @@
         <div>
             <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
                 <div class="container-fluid mycontainer d-flex">
-                    <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/index.aspx" id="btn_home">Food4U</a>
+                    <div>
+                        <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/index.aspx" id="btn_home">Food4U</a>
+                        <% if (Session["perfil"] != null && Session["perfil"].ToString() == "1")
+                        { %>
+                        <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/restaurant/dashboard.aspx" id="btn_restaurantes">Restaurantes</a>
+                         <% } %>
+                    </div>
+                    
                     <% if (Request.Url.LocalPath == "/index.aspx")
                     { %>
                     <div class="search-bar">

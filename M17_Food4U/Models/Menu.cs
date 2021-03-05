@@ -19,6 +19,58 @@ namespace M17_Food4U.Models
         public bool stock { get; set; }
         public bool enabled { get; set; }
 
+        BaseDados bd;
+        public Menu()
+        {
+            bd = new BaseDados();
+        }
+
+        public Menu(int restaurant, string title, string description, double price)
+        {
+            this.restaurant = restaurant;
+            this.title = title;
+            this.description = description;
+            this.price = price;
+            bd = new BaseDados();
+
+        }
+
+        public int Adicionar()
+        {
+            string sql = $@"INSERT INTO menus (restaurant, title, description, price) VALUES (@restaurant,@title,@description,@price); SELECT SCOPE_IDENTITY();";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName="@restaurant",
+                    SqlDbType=System.Data.SqlDbType.Int,
+                    Value=this.restaurant
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@title",
+                    SqlDbType=System.Data.SqlDbType.VarChar,
+                    Value=this.title
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@description",
+                    SqlDbType=System.Data.SqlDbType.VarChar,
+                    Value=this.description
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@price",
+                    SqlDbType=System.Data.SqlDbType.Decimal,
+                    Value=this.price
+                },
+            };
+            DataTable dados = bd.devolveSQL(sql, parametros);
+            id = int.Parse(dados.Rows[0].ItemArray[0].ToString());
+
+            return id;
+        }
+
         public static DataTable ListarMenusDiponíveis()
         {
             BaseDados bd = new BaseDados();

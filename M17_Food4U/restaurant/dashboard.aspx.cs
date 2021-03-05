@@ -15,14 +15,30 @@ namespace M17_Food4U.restaurant
         DateTime? filter_data = null;
         DateTime? filter_inicio = null;
         DateTime? filter_fim = null;
+        const int GRID_PAGE_SIZE = 5;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
                 return;
+            
             var dp_restaurantes = (Page.Master.FindControl("dp_restaurantes") as DropDownList);
             dp_restaurantes.SelectedIndexChanged += Dp_restaurantes_SelectedIndexChanged;
+            txt_datepicker.Text = DateTime.Today.ToString("yyyy-MM-dd");
+
+            dgv_pedidos.AllowPaging = true;
+            dgv_pedidos.PageSize = GRID_PAGE_SIZE;
+
+            dgv_pedidos.PageIndexChanging += Dgv_pedidos_PageIndexChanging;
+
+
+            AtualizaGrid();
+        }
+
+        private void Dgv_pedidos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgv_pedidos.PageIndex = e.NewPageIndex;
             AtualizaGrid();
         }
 
@@ -68,11 +84,60 @@ namespace M17_Food4U.restaurant
                     Restaurant restaurante = new Restaurant(int.Parse(dp_restaurantes.SelectedValue.ToString()));
                     DataTable dados = restaurante.ListarPedidosRestaurante(selecteds, filter_data, filter_inicio, filter_fim);
                     dgv_pedidos.DataSource = dados;
+                    dgv_pedidos.AutoGenerateColumns = false;
+
+                    /*
+                     ID, Menu,  data , estado
+                     */
+
+                    /*DropDownList dpEstados = new DropDownList();
+                    dpEstados.ID = "dpEstados";
+                    dpEstados.Items.Add("Em espera");
+                    dpEstados.Items.Add("A ser preparado");
+                    dpEstados.Items.Add("Concluído");*/
+
+                    BoundField bfIDPedido = new BoundField();
+                    bfIDPedido.HeaderText = "ID Pedido";
+                    bfIDPedido.DataField = "ID Pedido";
+                    dgv_pedidos.Columns.Add(bfIDPedido);
+
+                    BoundField bfIDMenu = new BoundField();
+                    bfIDMenu.HeaderText = "ID Menu";
+                    bfIDMenu.DataField = "ID Menu";
+                    dgv_pedidos.Columns.Add(bfIDMenu);
+
+                    BoundField bfMenu = new BoundField();
+                    bfMenu.HeaderText = "Menu";
+                    bfMenu.DataField = "Menu";
+                    dgv_pedidos.Columns.Add(bfMenu);
+
+                    BoundField bfdata = new BoundField();
+                    bfdata.HeaderText = "Data";
+                    bfdata.DataField = "data";
+                    dgv_pedidos.Columns.Add(bfdata);
+
+                    BoundField bfestado = new BoundField();
+                    bfestado.HeaderText = "Estado";
+                    bfestado.DataField = "estado";
+                    dgv_pedidos.Columns.Add(bfestado);
+
+                    DataColumn dcEstado = new DataColumn();
+                    dcEstado.ColumnName = "Alterar_Estado";
+                    dcEstado.DataType = Type.GetType("System.String");
+                    dados.Columns.Add(dcEstado);
+
+                    HyperLinkField hlestado = new HyperLinkField();
+                    hlestado.HeaderText = "Alterar Estado";
+                    hlestado.DataTextField = "Alterar_Estado"; // columname do datatable
+                    hlestado.Text = "Alterar Estado"; // Texto da celula
+                    hlestado.DataNavigateUrlFormatString = "alterarestado.aspx?id={0}";
+                    hlestado.DataNavigateUrlFields = new string[] { "ID Pedido" }; // Nome do campo a preencher a query string
+                    dgv_pedidos.Columns.Add(hlestado);
 
                     dgv_pedidos.DataBind();
                 }
             }
-            catch (Exception)
+            catch (Exception erro)
             {
 
             }

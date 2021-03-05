@@ -172,6 +172,23 @@ namespace M17_Food4U.Models
            
         }
 
+        internal static bool OwnsOrderMenu(int id_restaurante, int id_order)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $@"SELECT orders_menus.id
+                        FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id
+                        WHERE menus.restaurant = {id_restaurante} AND orders_menus.id = {id_order}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return false;
+
+            return true;
+
+        }
+
         public DataTable ListarPedidosRestaurante(List<int> estados = null, DateTime? data = null, DateTime? Inicio = null, DateTime? Fim = null)
         {
             string lista = "'1','2','3'";
@@ -197,7 +214,7 @@ namespace M17_Food4U.Models
             - Concluida
             */
 
-            string sql = $@"SELECT menus.id as ID, menus.title as Menu,  orders.createDate as [data] ,case
+            string sql = $@"SELECT orders_menus.id as [ID Pedido],menus.id as [ID Menu], menus.title as Menu,  orders.createDate as [data] ,case
                             when orders_menus.[state]=1 then 'Em espera'
                             when orders_menus.[state]=2 then 'A ser preparado'
                             when orders_menus.[state]=3 then 'Concluído'
@@ -236,6 +253,22 @@ namespace M17_Food4U.Models
                 return false;
 
             return true;
+        }
+        public DataTable ListarMenusRestaurante()
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = @"SELECT menus.id ,menus.title as nome, menus.[description] as descricao, menus.price as preco, 
+menus.stars as estrelas, menus.stock, menus.[enabled] as ativado, IIF(SUM(quantity) is NULL, 0,SUM(quantity)) as quantidade
+FROM menus LEFT JOIN orders_menus ON menus.id = orders_menus.menu WHERE restaurant = @id GROUP BY menus.id, menus.title, menus.[description], 
+menus.price, menus.stars, menus.stock,menus.[enabled]";
+            
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@id",SqlDbType=SqlDbType.Int,Value=this.id }
+            };
+
+            return bd.devolveSQL(sql, parametros);
         }
     }
 }

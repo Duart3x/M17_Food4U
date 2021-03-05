@@ -36,11 +36,14 @@
              <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
                 <div class="container-fluid mycontainer d-flex">
                     <div class="restaurant_master_nav">
-                        <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/index.aspx" id="btn_home">Food4U</a>
-                        <a class="navbar-brand" style="font-family: 'Roboto', sans-serif" href="/restaurant/dashboard.aspx" id="btn_dashboard">Dashboard</a>
+                        <a class="navbar-brand mr-4" style="font-family: 'Raleway', sans-serif; font-weight:400;" href="/index.aspx" id="btn_home">Food4U</a>
+                        <a class="navbar-brand" style="font-family: 'Raleway', sans-serif; font-weight:300;" href="/restaurant/dashboard.aspx" id="btn_dashboard">Dashboard</a>
+                        <a class="navbar-brand" style="font-family: 'Raleway', sans-serif; font-weight:300;" href="/restaurant/menus.aspx" id="btn_menus">Menus</a>
+                        
                         <asp:DropDownList ID="dp_restaurantes" CssClass="form-control dp_restaurantes" AutoPostBack="true" runat="server">
 
                         </asp:DropDownList>
+
                     </div>
                     
                     <div class="d-flex align-items-center justify-content-end">

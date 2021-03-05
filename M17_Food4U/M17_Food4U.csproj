@@ -71,12 +71,17 @@
     <Content Include="logbook.txt" />
     <Content Include="login.aspx" />
     <Content Include="Public\css\global.css" />
-    <Content Include="Public\images\menus\4.jpg" />
+    <Content Include="Public\images\menus\1.jpg" />
+    <Content Include="Public\images\menus\2.jpg" />
     <Content Include="Public\images\restaurants\1.jpg" />
+    <Content Include="Public\images\restaurants\2.jpg" />
     <Content Include="Public\js\codigo.js" />
     <Content Include="Public\js\pt.js" />
     <Content Include="register.aspx" />
+    <Content Include="restaurant\adicionarmenu.aspx" />
+    <Content Include="restaurant\alterarestado.aspx" />
     <Content Include="restaurant\dashboard.aspx" />
+    <Content Include="restaurant\menus.aspx" />
     <Content Include="servicos.asmx" />
     <Content Include="SQLQuery1.sql" />
     <Content Include="user\perfil.aspx" />
@@ -110,6 +115,8 @@
       <DependentUpon>master_page.Master</DependentUpon>
     </Compile>
     <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\OrdersMenus.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,12 +127,33 @@
     <Compile Include="register.aspx.designer.cs">
       <DependentUpon>register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="restaurant\adicionarmenu.aspx.cs">
+      <DependentUpon>adicionarmenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="restaurant\adicionarmenu.aspx.designer.cs">
+      <DependentUpon>adicionarmenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="restaurant\alterarestado.aspx.cs">
+      <DependentUpon>alterarestado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="restaurant\alterarestado.aspx.designer.cs">
+      <DependentUpon>alterarestado.aspx</DependentUpon>
+    </Compile>
     <Compile Include="restaurant\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="restaurant\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="restaurant\menus.aspx.cs">
+      <DependentUpon>menus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="restaurant\menus.aspx.designer.cs">
+      <DependentUpon>menus.aspx</DependentUpon>
     </Compile>
     <Compile Include="restaurant\restaurant_master.Master.cs">
       <DependentUpon>restaurant_master.Master</DependentUpon>

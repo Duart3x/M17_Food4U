@@ -48,9 +48,9 @@ namespace M17_Food4U
                 string city = row["city"].ToString();
 
                 string morada = row["address"].ToString();
-
+                int aleatorio = new Random().Next(999999);
                 cards += $@"<div class='card' style='width: 18rem; '>
-                               <img src = '/Public/images/restaurants/{id}.jpg' class='card-img-top' alt='{nome}'>
+                               <img src = '/Public/images/restaurants/{id}.jpg?{aleatorio}' class='card-img-top' alt='{nome}'>
                               <div class='card-body'>
                                 <h5 class='card-title'>{nome}</h5>
                                 <p class='card-text'>{city} - {morada}</p>
@@ -88,9 +88,10 @@ namespace M17_Food4U
                 bool hasStock = bool.Parse(row["stock"].ToString());
                 string morada = row["restaurant"].ToString();
 
+                int aleatorio = new Random().Next(999999);
 
                 cards += $@"<div class='card' style='width: 18rem; '>
-                               <img src = '/Public/images/menus/{id}.jpg' class='card-img-top' alt='{title}'>
+                               <img src = '/Public/images/menus/{id}.jpg?{aleatorio}' class='card-img-top' alt='{title}'>
                               <div class='card-body'>
                                 <h5 class='card-title'>{title}</h5>
                                 <p class='card-text'>{description}</p>
