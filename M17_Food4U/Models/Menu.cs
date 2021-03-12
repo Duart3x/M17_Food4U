@@ -71,11 +71,116 @@ namespace M17_Food4U.Models
             return id;
         }
 
+        internal static Menu GetMenu(int id_menu)
+        {
+            BaseDados bd = new BaseDados();
+            string sql = $"SELECT * FROM menus WHERE id = {id_menu}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return null;
+
+            Menu menu = new Menu();
+            menu.id = id_menu;
+            menu.restaurant = int.Parse(dados.Rows[0]["restaurant"].ToString());
+            menu.title = dados.Rows[0]["title"].ToString();
+            menu.description = dados.Rows[0]["description"].ToString();
+            menu.stock = bool.Parse(dados.Rows[0]["stock"].ToString());
+            menu.stars = int.Parse(dados.Rows[0]["stars"].ToString());
+            menu.price = double.Parse(dados.Rows[0]["price"].ToString());
+            menu.enabled = bool.Parse(dados.Rows[0]["enabled"].ToString());
+
+            return menu;
+        }
+
         public static DataTable ListarMenusDiponíveis()
         {
             BaseDados bd = new BaseDados();
             DataTable dados = bd.devolveSQL("SELECT menus.id,menus.title,menus.description,menus.price,menus.stars,menus.stock, restaurants.name as restaurant FROM menus JOIN restaurants ON menus.restaurant = restaurants.id  WHERE menus.enabled = 1 AND restaurants.enabled = 1");
             return dados;
+        }
+
+        internal void Atualizar()
+        {
+            string sql = "UPDATE menus SET title=@title, description=@description,price=@price WHERE id=@id";
+
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName="@id",
+                    SqlDbType=System.Data.SqlDbType.Int,
+                    Value=this.id
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@title",
+                    SqlDbType=System.Data.SqlDbType.VarChar,
+                    Value=this.title
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@description",
+                    SqlDbType=System.Data.SqlDbType.VarChar,
+                    Value=this.description
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@price",
+                    SqlDbType=System.Data.SqlDbType.Decimal,
+                    Value=this.price
+                },
+            };
+            bd.executaSQL(sql, parametros);
+        }
+
+        public static void ToggleMenu(int id_menu, bool state)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = "UPDATE menus SET [enabled] = @enabled WHERE id = @id";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName="@id",
+                    SqlDbType=System.Data.SqlDbType.Int,
+                    Value=id_menu
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@enabled",
+                    SqlDbType=System.Data.SqlDbType.Bit,
+                    Value=state
+                },
+            };
+
+            bd.executaSQL(sql, parametros);
+        }
+
+        public static void ToggleStockMenu(int id_menu, bool state)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = "UPDATE menus SET [stock] = @stock WHERE id = @id";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName="@id",
+                    SqlDbType=System.Data.SqlDbType.Int,
+                    Value=id_menu
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@stock",
+                    SqlDbType=System.Data.SqlDbType.Bit,
+                    Value=state
+                },
+            };
+
+            bd.executaSQL(sql, parametros);
         }
     }
 }

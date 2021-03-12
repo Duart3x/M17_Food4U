@@ -11,61 +11,79 @@ namespace M17_Food4U.restaurant
 {
 
 
-    public partial class menus
+    public partial class editarmenu
     {
 
         /// <summary>
-        /// btn_adicionarmenu control.
+        /// txt_nome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_adicionarmenu;
+        protected global::System.Web.UI.WebControls.TextBox txt_nome;
 
         /// <summary>
-        /// dgv_menus control.
+        /// txt_descricao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgv_menus;
+        protected global::System.Web.UI.WebControls.TextBox txt_descricao;
 
         /// <summary>
-        /// btn_ativar control.
+        /// txt_preco control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_ativar;
+        protected global::System.Web.UI.WebControls.TextBox txt_preco;
 
         /// <summary>
-        /// btn_desativar control.
+        /// img_menu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_desativar;
+        protected global::System.Web.UI.HtmlControls.HtmlImage img_menu;
 
         /// <summary>
-        /// btn_AtivarStock control.
+        /// FileUpload1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_AtivarStock;
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
 
         /// <summary>
-        /// btn_DesativarStock control.
+        /// div_erro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_DesativarStock;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_erro;
+
+        /// <summary>
+        /// lb_erro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_erro;
+
+        /// <summary>
+        /// btn_confirmar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_confirmar;
     }
 }

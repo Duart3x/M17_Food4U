@@ -7,75 +7,75 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace M17_Food4U.user
+namespace M17_Food4U
 {
 
 
-    public partial class perfil
+    public partial class restaurante
     {
 
         /// <summary>
-        /// btn_logout control.
+        /// restaurante_nome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_logout;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl restaurante_nome;
 
         /// <summary>
-        /// txt_email control.
+        /// menu_foto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_email;
+        protected global::System.Web.UI.HtmlControls.HtmlImage menu_foto;
 
         /// <summary>
-        /// txt_nome control.
+        /// menu_grid_menus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_nome;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menu_grid_menus;
 
         /// <summary>
-        /// txt_nif control.
+        /// div_inputcomentario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_nif;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_inputcomentario;
 
         /// <summary>
-        /// txt_data_nasc control.
+        /// txt_comentario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_data_nasc;
+        protected global::System.Web.UI.WebControls.TextBox txt_comentario;
 
         /// <summary>
-        /// btn_editar control.
+        /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_editar;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 
         /// <summary>
-        /// btn_confirmar control.
+        /// lb_erro_comentario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_confirmar;
+        protected global::System.Web.UI.WebControls.Label lb_erro_comentario;
 
         /// <summary>
         /// btn_cancelar control.
@@ -87,21 +87,30 @@ namespace M17_Food4U.user
         protected global::System.Web.UI.WebControls.Button btn_cancelar;
 
         /// <summary>
-        /// txt_password control.
+        /// btn_comentar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_password;
+        protected global::System.Web.UI.WebControls.Button btn_comentar;
 
         /// <summary>
-        /// btn_ConfirmarPassword control.
+        /// div_informarregisto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_ConfirmarPassword;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_informarregisto;
+
+        /// <summary>
+        /// div_comentarios_content control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_comentarios_content;
     }
 }

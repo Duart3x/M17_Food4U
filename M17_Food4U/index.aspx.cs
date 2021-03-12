@@ -49,8 +49,8 @@ namespace M17_Food4U
 
                 string morada = row["address"].ToString();
                 int aleatorio = new Random().Next(999999);
-                cards += $@"<div class='card' style='width: 18rem; '>
-                               <img src = '/Public/images/restaurants/{id}.jpg?{aleatorio}' class='card-img-top' alt='{nome}'>
+                cards += $@"<div class='card product_card' onclick='showRestaurante({id})' style='width: 18rem;' >
+                               <img  src = '/Public/images/restaurants/{id}.jpg?{aleatorio}' class='card-img-top' alt='{nome}'>
                               <div class='card-body'>
                                 <h5 class='card-title'>{nome}</h5>
                                 <p class='card-text'>{city} - {morada}</p>
@@ -90,9 +90,9 @@ namespace M17_Food4U
 
                 int aleatorio = new Random().Next(999999);
 
-                cards += $@"<div class='card' style='width: 18rem; '>
-                               <img src = '/Public/images/menus/{id}.jpg?{aleatorio}' class='card-img-top' alt='{title}'>
-                              <div class='card-body'>
+                cards += $@"<div class='card product_card' style='width: 18rem;' >
+                               <img onclick='showMenu({id})' src = '/Public/images/menus/{id}.jpg?{aleatorio}' class='card-img-top' alt='{title}'>
+                              <div class='card-body' onclick='showMenu({id})'>
                                 <h5 class='card-title'>{title}</h5>
                                 <p class='card-text'>{description}</p>
                               </div>

@@ -20,11 +20,13 @@ namespace M17_Food4U.restaurant
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack)
-                return;
-            
+
             var dp_restaurantes = (Page.Master.FindControl("dp_restaurantes") as DropDownList);
             dp_restaurantes.SelectedIndexChanged += Dp_restaurantes_SelectedIndexChanged;
+
+            if (IsPostBack)
+                return;
+
             txt_datepicker.Text = DateTime.Today.ToString("yyyy-MM-dd");
 
             dgv_pedidos.AllowPaging = true;
@@ -48,6 +50,7 @@ namespace M17_Food4U.restaurant
             int id_restaurante = int.Parse((sender as DropDownList).SelectedValue.ToString());
             if (Restaurant.UserOwnsRestaurant(id_restaurante, id_user))
                 AtualizaGrid();
+
         }
 
         private void AtualizaGrid()

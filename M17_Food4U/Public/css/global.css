@@ -252,3 +252,45 @@ h2 {
         width: 100% !important;
     }
 }
+.product_card{
+    transition: 0.5s;
+}
+
+.product_card:hover {
+    cursor: pointer;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.coment-zone {
+    width: 100%;
+
+    background: #f8f9fa;
+}
+#botoes_comentar {
+    display: flex;
+}
+
+@media (max-width: 869px) {
+    #page-detalhesmenu {
+        flex-direction: column;
+    }
+    #div_detalhesmenu{
+
+        width:100% !important;
+    }
+    #div_comentarios {
+        margin-top: 40px;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+
+.menu_grid2 {
+    max-width: 100%;
+    display: grid;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 10px;
+}

@@ -16,7 +16,6 @@ namespace M17_Food4U.restaurant
             if(Session["perfil"] == null || Session["perfil"].ToString() != "1")
                 Response.Redirect("~/index.aspx");
 
-            
             if (IsPostBack)
                 return;
 
@@ -39,6 +38,9 @@ namespace M17_Food4U.restaurant
                 {
                     dp_restaurantes.Items.Add(new ListItem(row["name"].ToString(), row["id"].ToString()));
                 }
+
+                if (Session["id_restaurante"] != null)
+                    dp_restaurantes.SelectedValue = Session["id_restaurante"].ToString();
             }
             catch (Exception erro)
             {
@@ -56,7 +58,11 @@ namespace M17_Food4U.restaurant
             {
                 Response.Redirect("/login.aspx");
             }
+        }
 
+        protected void dp_restaurantes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Session["id_restaurante"] = dp_restaurantes.SelectedValue.ToString();
         }
     }
 }

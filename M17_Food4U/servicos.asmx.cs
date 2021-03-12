@@ -29,6 +29,5 @@ namespace M17_Food4U
 
             return new JavaScriptSerializer().Serialize(pesquisa);
         }
-
     }
 }

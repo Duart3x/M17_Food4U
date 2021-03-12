@@ -43,7 +43,7 @@
                          <% } %>
                     </div>
                     
-                    <% if (Request.Url.LocalPath == "/index.aspx")
+                    <% if (Request.Url.LocalPath == "/index.aspx" || Request.Url.LocalPath == "/menu.aspx" || Request.Url.LocalPath == "/restaurante.aspx")
                     { %>
                     <div class="search-bar">
                         <select class="js-example-data-ajax form-control" runat="server"></select>

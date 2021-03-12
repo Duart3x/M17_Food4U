@@ -43,8 +43,6 @@ namespace M17_Food4U.restaurant
                 FileUpload1.PostedFile.ContentLength > 5000000)
                     throw new Exception("O tamanho da foto do menu não é válido.");
 
-                
-
                 int id_user = int.Parse(Session["id_user"].ToString());
                 var dp_restaurantes = (Page.Master.FindControl("dp_restaurantes") as DropDownList);
                 int id_restaurante = int.Parse(dp_restaurantes.SelectedValue.ToString());

@@ -45,12 +45,13 @@ namespace M17_Food4U
                 DateTime data_nasc = DateTime.Parse(txt_data_nasc.Text);
                 string password = txt_password.Text;
 
-                
-
                 //Validar dados
                 //email
                 if (email == String.Empty || email.Contains("@") == false || email.Contains(".") == false)
                     throw new Exception("O email indicado não é válido.");
+
+                if (DateTime.Now.Year - data_nasc.Year < 16)
+                    throw new Exception("Deves ter no mímimo 16 anos para poderes usar a Food4U");
 
                 //nome
                 if (nome == String.Empty || nome.Trim().Length < 3)

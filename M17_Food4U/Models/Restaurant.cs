@@ -31,6 +31,29 @@ namespace M17_Food4U.Models
             this.id = id;
         }
 
+        internal static Restaurant GetRestaurante(int restaurant)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $"SELECT * FROM restaurants WHERE id = {restaurant}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return null;
+
+            Restaurant restaurant1 = new Restaurant();
+            restaurant1.id = restaurant;
+            restaurant1.owner = int.Parse(dados.Rows[0]["owner"].ToString());
+            restaurant1.name = dados.Rows[0]["name"].ToString();
+            restaurant1.city = dados.Rows[0]["city"].ToString();
+            restaurant1.cp = dados.Rows[0]["cp"].ToString();
+            restaurant1.address = dados.Rows[0]["address"].ToString();
+            restaurant1.enabled = bool.Parse(dados.Rows[0]["enabled"].ToString());
+
+            return restaurant1;
+        }
+
         internal static DataTable ListarRestaurantesUser(int id_user)
         {
             BaseDados bd = new BaseDados();
@@ -47,6 +70,59 @@ namespace M17_Food4U.Models
             BaseDados bd = new BaseDados();
             DataTable dados = bd.devolveSQL("SELECT id,name,city,address FROM restaurants WHERE enabled = 1");
             return dados;
+        }
+
+        public int CriarRestaurante(int utilizador)
+        {
+            try
+            {
+                string sql = @"INSERT INTO restaurants(owner,name,city,cp,address)
+                            VALUES (@owner,@name,@city,@cp,@address); SELECT SCOPE_IDENTITY();";
+                List<SqlParameter> parametros = new List<SqlParameter>()
+                {
+                    new SqlParameter()
+                    {
+                        ParameterName="@owner",
+                        SqlDbType= SqlDbType.Int,
+                        Value=utilizador
+                    },
+                    new SqlParameter()
+                    {
+                        ParameterName="@name",
+                        SqlDbType= SqlDbType.VarChar,
+                        Value=this.name
+                    },
+                    new SqlParameter()
+                    {
+                        ParameterName="@city",
+                        SqlDbType= SqlDbType.VarChar,
+                        Value=this.city
+                    },
+                    new SqlParameter()
+                    {
+                        ParameterName="@cp",
+                        SqlDbType= SqlDbType.VarChar,
+                        Value=this.cp
+                    },
+                    new SqlParameter()
+                    {
+                        ParameterName="@address",
+                        SqlDbType= SqlDbType.VarChar,
+                        Value= this.address
+                    }
+                };
+
+                DataTable dados = bd.devolveSQL(sql, parametros);
+
+                int id = int.Parse(dados.Rows[0].ItemArray[0].ToString());
+
+                return id;
+            }
+            catch (Exception erro)
+            {
+                throw new Exception(erro.Message);
+            }
+            
         }
 
         public int AdicionarRestauranteOwner(User utilizador)
@@ -254,6 +330,19 @@ namespace M17_Food4U.Models
 
             return true;
         }
+
+        public static bool RestaurantOwnsMenu(int restaurante, int id_menu)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $"SELECT id FROM menus WHERE restaurant = {restaurante} AND id = {id_menu}";
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return false;
+
+            return true;
+        }
         public DataTable ListarMenusRestaurante()
         {
             BaseDados bd = new BaseDados();
@@ -266,6 +355,22 @@ menus.price, menus.stars, menus.stock,menus.[enabled]";
             List<SqlParameter> parametros = new List<SqlParameter>()
             {
                 new SqlParameter() {ParameterName="@id",SqlDbType=SqlDbType.Int,Value=this.id }
+            };
+
+            return bd.devolveSQL(sql, parametros);
+        }
+
+        public static DataTable ListarMenusRestaurante(int id_restaurante)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = @"SELECT menus.id ,menus.title, menus.[description], menus.price, 
+                            menus.stars, menus.stock, menus.[enabled]
+                            FROM menus WHERE restaurant = @id AND menus.[enabled] = 1";
+
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@id",SqlDbType=SqlDbType.Int,Value=id_restaurante }
             };
 
             return bd.devolveSQL(sql, parametros);

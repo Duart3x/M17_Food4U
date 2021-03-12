@@ -42,6 +42,15 @@ namespace M17_Food4U.restaurant
         protected global::System.Web.UI.WebControls.DropDownList dp_restaurantes;
 
         /// <summary>
+        /// btn_novorestaurante control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_novorestaurante;
+
+        /// <summary>
         /// btn_user control.
         /// </summary>
         /// <remarks>

@@ -67,7 +67,7 @@ CREATE TABLE menus(
 	[title] varchar(100) not null,
 	[description] varchar(255) not null DEFAULT '',
 	[price] DECIMAL(19,4) not null,
-	[stars] int not null default 0,
+	[stars] int not null default 0 CHECK([stars] >= 0 or [stars] <= 5),
 	[stock] bit DEFAULT 1,
 	[enabled] bit DEFAULT 1
 );
@@ -76,14 +76,18 @@ CREATE TABLE menu_comments(
 	id int identity primary key,
 	[user] int references users(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	[menu] int references menus(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	[stars] int not null default 0 CHECK([stars] >= 0 or [stars] <= 5),
 	[comment] varchar(255) not null,
+	[CreateDate] datetime not null DEFAULT getDate()
 );
 
 CREATE TABLE restaurant_comments(
 	id int identity primary key,
 	[user] int references users(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	[restaurant] int references restaurants(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	[comment] varchar(255) not null
+	[stars] int not null default 0 CHECK([stars] >= 0 or [stars] <= 5),
+	[comment] varchar(255) not null,
+	[CreateDate] datetime not null DEFAULT getDate()
 );
 
 CREATE TABLE orders(
@@ -144,4 +148,29 @@ BEGIN
     SELECT @UserId = INSERTED.id FROM INSERTED;
  
     INSERT INTO shopping_carts([user]) VALUES (@UserId);
+END
+
+DROP TRIGGER TR_CalcStarsMenu
+
+CREATE TRIGGER TR_CalcStarsMenu ON menu_comments
+AFTER INSERT
+AS
+ 
+BEGIN
+	SET NOCOUNT ON;
+ 
+    DECLARE @MenuId INT;
+    DECLARE @star INT;
+    DECLARE @NumComments INT;
+    DECLARE @totalstars INT;
+
+ 
+    SELECT @MenuId = INSERTED.menu FROM INSERTED;
+    SELECT @star = INSERTED.stars FROM INSERTED;
+
+	SELECT @NumComments = COUNT(*) FROM menu_comments WHERE menu = @MenuId
+	SELECT @totalstars = SUM(stars) FROM menu_comments WHERE menu = @MenuId
+
+
+	UPDATE menus SET stars = (@totalstars / @NumComments) WHERE id = @MenuId
 END

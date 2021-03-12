@@ -28,7 +28,6 @@
 	- Editar Menu
 	- Colocar Menu indisponível
 	- "Eliminar" Menu
-- Aceitar / Recusar Pedidos 
 
 
 [[LEGENDA DOS PEDIDOS]]
