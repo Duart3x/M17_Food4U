@@ -40,7 +40,7 @@
                         <a class="navbar-brand" style="font-family: 'Raleway', sans-serif; font-weight:300;" href="/restaurant/dashboard.aspx" id="btn_dashboard">Dashboard</a>
                         <a class="navbar-brand" style="font-family: 'Raleway', sans-serif; font-weight:300;" href="/restaurant/menus.aspx" id="btn_menus">Menus</a>
                         
-                        <asp:DropDownList ID="dp_restaurantes" CssClass="form-control dp_restaurantes" OnSelectedIndexChanged="dp_restaurantes_SelectedIndexChanged" AutoPostBack="true" runat="server">
+                        <asp:DropDownList ID="dp_restaurantes" CssClass="form-control dp_restaurantes btn-outline-primary" OnSelectedIndexChanged="dp_restaurantes_SelectedIndexChanged" AutoPostBack="true" runat="server">
 
                         </asp:DropDownList>
                         <asp:Button ID="btn_novorestaurante"  PostBackUrl="~/restaurant/novorestaurante.aspx" Text="Novo Restaurante" CssClass="btn btn-lg btn-outline-primary ml-4" CausesValidation="false" runat="server" />

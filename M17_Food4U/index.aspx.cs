@@ -76,7 +76,27 @@ namespace M17_Food4U
 
         private void AtualizarComidas()
         {
-            DataTable menus = Menu.ListarMenusDiponíveis();
+            DataTable menus;
+            
+            /*if (Request.QueryString.Get("p") != null)
+            {
+                try
+                {
+                    Menu menuobj = Menu.GetMenu(int.Parse(Request.QueryString.Get("p").ToString()));
+                    
+                    menus = Menu.ListarMenusDiponíveis(menuobj.title);
+                }
+                catch (Exception)
+                {
+                    menus = Menu.ListarMenusDiponíveis();
+                }
+                
+            }
+            else
+                menus = Menu.ListarMenusDiponíveis();*/
+
+            menus = Menu.ListarMenusDiponíveis();
+
             string cards = "";
             foreach (DataRow row in menus.Rows)
             {

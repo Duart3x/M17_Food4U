@@ -94,10 +94,23 @@ namespace M17_Food4U.Models
             return menu;
         }
 
-        public static DataTable ListarMenusDiponíveis()
+        public static DataTable ListarMenusDiponíveis(string termo = "")
         {
             BaseDados bd = new BaseDados();
-            DataTable dados = bd.devolveSQL("SELECT menus.id,menus.title,menus.description,menus.price,menus.stars,menus.stock, restaurants.name as restaurant FROM menus JOIN restaurants ON menus.restaurant = restaurants.id  WHERE menus.enabled = 1 AND restaurants.enabled = 1");
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName="@termo",
+                    SqlDbType=System.Data.SqlDbType.VarChar,
+                    Value= "%"+termo+"%"
+                }
+            };
+
+            DataTable dados = bd.devolveSQL($@"SELECT menus.id,menus.title,menus.description,menus.price,menus.stars,menus.stock, restaurants.name as restaurant 
+                                            FROM menus JOIN restaurants ON menus.restaurant = restaurants.id  
+                                            WHERE menus.enabled = 1 AND restaurants.enabled = 1 AND menus.title LIKE @termo", parametros);
+            
             return dados;
         }
 

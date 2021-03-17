@@ -67,6 +67,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\bd.mdf" />
+    <Content Include="App_Data\bd_log.ldf">
+      <DependentUpon>bd.mdf</DependentUpon>
+    </Content>
     <Content Include="index.aspx" />
     <Content Include="logbook.txt" />
     <Content Include="login.aspx" />
@@ -125,6 +129,7 @@
     <Compile Include="menu.aspx.designer.cs">
       <DependentUpon>menu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\MenuComment.cs" />
     <Compile Include="Models\Orders.cs" />
@@ -228,7 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Admin\" />
-    <Folder Include="App_Data\" />
     <Folder Include="Courier\" />
   </ItemGroup>
   <PropertyGroup>
