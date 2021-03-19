@@ -67,6 +67,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\dashboard.aspx" />
+    <Content Include="admin\historicopedidos.aspx" />
+    <Content Include="admin\historicotransacoes.aspx" />
+    <Content Include="admin\pedidos.aspx" />
+    <Content Include="admin\restaurantes.aspx" />
+    <Content Include="admin\users.aspx" />
     <Content Include="App_Data\bd.mdf" />
     <Content Include="App_Data\bd_log.ldf">
       <DependentUpon>bd.mdf</DependentUpon>
@@ -96,7 +102,57 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\historicopedidos.aspx.cs">
+      <DependentUpon>historicopedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\historicopedidos.aspx.designer.cs">
+      <DependentUpon>historicopedidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\historicotransacoes.aspx.cs">
+      <DependentUpon>historicotransacoes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\historicotransacoes.aspx.designer.cs">
+      <DependentUpon>historicotransacoes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\master_admin.Master.cs">
+      <DependentUpon>master_admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\master_admin.Master.designer.cs">
+      <DependentUpon>master_admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="admin\pedidos.aspx.cs">
+      <DependentUpon>pedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\pedidos.aspx.designer.cs">
+      <DependentUpon>pedidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\restaurantes.aspx.cs">
+      <DependentUpon>restaurantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\restaurantes.aspx.designer.cs">
+      <DependentUpon>restaurantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\users.aspx.cs">
+      <DependentUpon>users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\users.aspx.designer.cs">
+      <DependentUpon>users.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Classes\BaseDados.cs" />
+    <Compile Include="Classes\Estatisticas.cs" />
     <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\PesquisaAvancada.cs" />
     <Compile Include="Classes\ReCaptcha.cs" />
@@ -134,8 +190,10 @@
     <Compile Include="Models\MenuComment.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\OrdersMenus.cs" />
+    <Compile Include="Models\Pagamento.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\RestaurantComment.cs" />
+    <Compile Include="Models\Transacao.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="register.aspx.cs">
@@ -215,6 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="master_page.Master" />
+    <Content Include="admin\master_admin.Master" />
     <None Include="packages.config" />
     <Content Include="restaurant\restaurant_master.Master" />
     <Content Include="Web_model.config" />
@@ -232,7 +291,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Admin\" />
     <Folder Include="Courier\" />
   </ItemGroup>
   <PropertyGroup>

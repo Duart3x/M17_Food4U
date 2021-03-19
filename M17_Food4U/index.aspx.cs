@@ -15,21 +15,8 @@ namespace M17_Food4U
         {
             if (IsPostBack)
                 return;
-            if (Request.QueryString.Get("p") != null)
-            {
-                // Produto no link
-                AtualizarComidas();
-
-            }
-            else if(Request.QueryString.Get("r") != null)
-            {
-                // Restaurante no link
-                AtualizarRestaurantes();
-            }
-            else
-            {
-                AtualizarCards();
-            }
+            
+            AtualizarCards();
         }
         private void AtualizarCards()
         {
@@ -77,23 +64,6 @@ namespace M17_Food4U
         private void AtualizarComidas()
         {
             DataTable menus;
-            
-            /*if (Request.QueryString.Get("p") != null)
-            {
-                try
-                {
-                    Menu menuobj = Menu.GetMenu(int.Parse(Request.QueryString.Get("p").ToString()));
-                    
-                    menus = Menu.ListarMenusDiponíveis(menuobj.title);
-                }
-                catch (Exception)
-                {
-                    menus = Menu.ListarMenusDiponíveis();
-                }
-                
-            }
-            else
-                menus = Menu.ListarMenusDiponíveis();*/
 
             menus = Menu.ListarMenusDiponíveis();
 

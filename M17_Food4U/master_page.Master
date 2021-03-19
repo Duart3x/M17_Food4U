@@ -39,7 +39,11 @@
                         <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/index.aspx" id="btn_home">Food4U</a>
                         <% if (Session["perfil"] != null && Session["perfil"].ToString() == "1")
                         { %>
-                        <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/restaurant/dashboard.aspx" id="btn_restaurantes">Restaurantes</a>
+                            <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/restaurant/dashboard.aspx" id="btn_restaurantes">Dashboard</a>
+                         <% } %>
+                        <% if (Session["perfil"] != null && Session["perfil"].ToString() == "0")
+                        { %>
+                            <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/admin/dashboard.aspx" id="btn_administracao">Dashboard</a>
                          <% } %>
                     </div>
                     
@@ -136,9 +140,9 @@
             var data = e.params.data;
             console.log(data)
             if (data.owner != null) {
-                window.location.replace("/index.aspx?r=" + data.id)
+                window.location.replace("/restaurante.aspx?id=" + data.id)
             } else {
-                window.location.replace("/index.aspx?m=" + data.id)
+                window.location.replace("/menu.aspx?id=" + data.id)
             }
         });
 

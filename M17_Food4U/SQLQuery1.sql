@@ -31,7 +31,8 @@ CREATE TABLE transacoes(
 	[user] int not null references users(id),
 	[source] varchar(100) not null,
 	saldo DECIMAL(19,4) not null,
-	valor DECIMAL(19,4) not null
+	valor DECIMAL(19,4) not null,
+	createDate DateTime not null DEFAULT getdate()
 );
 
 CREATE TABLE pagamentos(
@@ -40,7 +41,8 @@ CREATE TABLE pagamentos(
 	[restaurant] int references restaurants(id),
 	[courier] int references users(id),
 	saldo DECIMAL(19,4) not null,
-	valor DECIMAL(19,4) not null
+	valor DECIMAL(19,4) not null, 
+	createDate DateTime not null DEFAULT getdate()
 );
 
 CREATE TABLE addresses(

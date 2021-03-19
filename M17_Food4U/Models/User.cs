@@ -144,6 +144,14 @@ namespace M17_Food4U.Models
             bd.executaSQL(sql, parametros);
         }
 
+        internal static void ToggleUtilizador(int id_utilizador, int value)
+        {
+            BaseDados bd = new BaseDados();
+            
+            string sql = $"UPDATE users SET estado = {value} WHERE id = {id_utilizador}";
+            bd.executaSQL(sql);
+        }
+
         internal void Atualizar()
         {
             string sql = "UPDATE users SET email = @email, name = @name, nif = @nif, data_nasc = @data_nasc WHERE id = @id_user";
@@ -182,6 +190,15 @@ namespace M17_Food4U.Models
             };
 
             bd.executaSQL(sql, parametros);
+        }
+
+        internal static void DeleteUser(int num_id_utilizador)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $"DELETE FROM users WHERE id = {num_id_utilizador}";
+
+            bd.executaSQL(sql);
         }
 
         public void AdicionarEstafeta()
@@ -259,6 +276,15 @@ namespace M17_Food4U.Models
                 },
             };
             bd.executaSQL(sql, parametros);
+        }
+
+        static public DataTable ListarUtilizadores()
+        {
+            BaseDados bd = new BaseDados();
+            string sql = "SELECT id,email,name,nif,data_nasc,saldo,estado,perfil FROM users";
+
+            DataTable dados = bd.devolveSQL(sql);
+            return dados;
         }
     }
 }

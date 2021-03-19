@@ -1,6 +1,7 @@
 ﻿using M17_Food4U.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -19,6 +20,15 @@ namespace M17_Food4U.Models
         public Orders()
         {
             bd = new BaseDados();
+        }
+
+        public static DataTable GetOrdersFromUser(int id_user)
+        {
+            BaseDados bd = new BaseDados();
+            string sql = $@"SELECT orders.id, orders.[state], orders.createDate 
+FROM orders WHERE client = {id_user};";
+
+            return bd.devolveSQL(sql);
         }
     }
 }

@@ -50,5 +50,15 @@ namespace M17_Food4U.Models
 
 
         }
+
+        public static DataTable getOrdersMenusFromOrder(int id_order)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $@"SELECT orders_menus.id, menus.title, orders_menus.quantity FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id WHERE [order] = {id_order}";
+
+            return bd.devolveSQL(sql);
+        
+        }
     }
 }

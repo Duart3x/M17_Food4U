@@ -123,7 +123,7 @@ namespace M17_Food4U.restaurant
             hldetalhes.HeaderText = "Detalhes";
             hldetalhes.DataTextField = "Detalhes";
             hldetalhes.Text = "Detalhes";
-            hldetalhes.DataNavigateUrlFormatString = "~/index.aspx?p={0}";
+            hldetalhes.DataNavigateUrlFormatString = "~/menu.aspx?id={0}";
             hldetalhes.DataNavigateUrlFields = new string[] { "id" };
             dgv_menus.Columns.Add(hldetalhes);
 
