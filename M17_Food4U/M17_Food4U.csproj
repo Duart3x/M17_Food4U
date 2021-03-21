@@ -67,9 +67,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\comentariosmenu.aspx" />
+    <Content Include="admin\comentariosrestaurante.aspx" />
     <Content Include="admin\dashboard.aspx" />
     <Content Include="admin\detalhespedido.aspx" />
     <Content Include="admin\editarmenu.aspx" />
+    <Content Include="admin\editaruser.aspx" />
     <Content Include="admin\estadopedido.aspx" />
     <Content Include="admin\historicopedidos.aspx" />
     <Content Include="admin\historicotransacoes.aspx" />
@@ -82,6 +85,8 @@
     <Content Include="App_Data\bd_log.ldf">
       <DependentUpon>bd.mdf</DependentUpon>
     </Content>
+    <Content Include="estafeta\dashboard.aspx" />
+    <Content Include="estafeta\pedidos.aspx" />
     <Content Include="index.aspx" />
     <Content Include="logbook.txt" />
     <Content Include="login.aspx" />
@@ -107,6 +112,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\comentariosmenu.aspx.cs">
+      <DependentUpon>comentariosmenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\comentariosmenu.aspx.designer.cs">
+      <DependentUpon>comentariosmenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\comentariosrestaurante.aspx.cs">
+      <DependentUpon>comentariosrestaurante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\comentariosrestaurante.aspx.designer.cs">
+      <DependentUpon>comentariosrestaurante.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -127,6 +146,13 @@
     </Compile>
     <Compile Include="admin\editarmenu.aspx.designer.cs">
       <DependentUpon>editarmenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\editaruser.aspx.cs">
+      <DependentUpon>editaruser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\editaruser.aspx.designer.cs">
+      <DependentUpon>editaruser.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\estadopedido.aspx.cs">
       <DependentUpon>estadopedido.aspx</DependentUpon>
@@ -197,6 +223,27 @@
     <Compile Include="Classes\PesquisaAvancada.cs" />
     <Compile Include="Classes\ReCaptcha.cs" />
     <Compile Include="Classes\UserLogin.cs" />
+    <Compile Include="estafeta\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="estafeta\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="estafeta\master_estafetas.Master.cs">
+      <DependentUpon>master_estafetas.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="estafeta\master_estafetas.Master.designer.cs">
+      <DependentUpon>master_estafetas.Master</DependentUpon>
+    </Compile>
+    <Compile Include="estafeta\pedidos.aspx.cs">
+      <DependentUpon>pedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="estafeta\pedidos.aspx.designer.cs">
+      <DependentUpon>pedidos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -314,6 +361,7 @@
   <ItemGroup>
     <Content Include="master_page.Master" />
     <Content Include="admin\master_admin.Master" />
+    <Content Include="estafeta\master_estafetas.Master" />
     <None Include="packages.config" />
     <Content Include="restaurant\restaurant_master.Master" />
     <Content Include="Web_model.config" />
@@ -330,9 +378,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Courier\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -60,6 +60,15 @@ namespace M17_Food4U.Models
             return user;
         }
 
+        internal static void MudarPerfil(int id_user, int value)
+        {
+            BaseDados bd = new BaseDados();
+            string sql = $"UPDATE users SET perfil = {value} WHERE id = {id_user}";
+
+            bd.executaSQL(sql);
+
+        }
+
         internal List<Address> getMoradas()
         {
             string sql = "SELECT TOP 3 * FROM addresses WHERE [user] = " + id;

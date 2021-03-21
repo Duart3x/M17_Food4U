@@ -60,15 +60,24 @@ namespace M17_Food4U.Models
         {
             BaseDados bd = new BaseDados();
 
-            string sql = $"SELECT restaurant_comments.comment,restaurant_comments.stars,restaurant_comments.CreateDate, users.name FROM restaurant_comments JOIN users ON restaurant_comments.[user] = users.id WHERE restaurant_comments.restaurant = {id_restaurant} ORDER BY restaurant_comments.CreateDate DESC";
+            string sql = $"SELECT restaurant_comments.id,restaurant_comments.comment,restaurant_comments.stars,restaurant_comments.CreateDate, users.name FROM restaurant_comments JOIN users ON restaurant_comments.[user] = users.id WHERE restaurant_comments.restaurant = {id_restaurant} ORDER BY restaurant_comments.CreateDate DESC";
 
-
+            // id
             // comment
             // stars
             // name
             // CreateDate
 
             return bd.devolveSQL(sql);
+        }
+
+        internal static void DeleteComment(int num_id_comentario)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $"DELETE FROM restaurant_comments WHERE id = {num_id_comentario}";
+
+            bd.executaSQL(sql);
         }
     }
 }

@@ -14,33 +14,17 @@ namespace M17_Food4U.Classes
         {
             bd = new BaseDados();
         }
-        /*
-            <h3>Saldo depositado na plataforma: <span id="lb_saldo" runat="server"></span></h3>
-            <hr />
-            <h3>Total Utilizadores Registados: <span id="lb_userscount" runat="server"></span></h3>
-            <h3>Utilizadores: <span id="lb_normaluserscount" runat="server"></span></h3>
-            <h3>Estafetas: <span id="lb_estafetascount" runat="server"></span></h3>
-            <h3>Administradores: <span id="lb_admincount" runat="server"></span></h3>
-            <hr />
-            <h3>Donos Restaurantes: <span id="lb_donosrestaurantes" runat="server"></span></h3>
-            <h3>Total Restaurantes Registados: <span id="lb_restaurantescount" runat="server"></span></h3>
-            <hr />
-            <h3>Total Pedidos: <span id="lb_pedidoscount" runat="server"></span></h3>
-            <h3>Total Pedidos Finalizados: <span id="lb_pedidosfinished" runat="server"></span></h3>
-            <h3>Menu mais pedido: <span id="lb_menumaispedido" runat="server"></span></h3>
-            <h3>Menu com mais rating: <span id="lb_menurating" runat="server"></span></h3>
-            <h3>Restaurante com mais rating: <span id="lb_restaurantrating" runat="server"></span></h3>
-         */
+
         #region Users
         public double getSaldoPlataforma()
         {
-            string sql = "SELECT CAST(SUM(saldo) as INT) as saldo FROM users";
+            string sql = "SELECT SUM(saldo) as saldo FROM users";
             DataTable dados = bd.devolveSQL(sql);
 
             if (dados == null || dados.Rows.Count == 0)
                 return 0;
 
-            return int.Parse(dados.Rows[0]["saldo"].ToString());
+            return double.Parse(dados.Rows[0]["saldo"].ToString());
         }
 
         public int getTotalUsers()
@@ -132,6 +116,18 @@ namespace M17_Food4U.Classes
 
             return int.Parse(dados.Rows[0]["total"].ToString());
         }
+
+        public int getTotalPedidosFinalizados(int estafeta)
+        {
+
+            string sql = $"SELECT COUNT(*) as total FROM orders WHERE [state] = 4 AND courier = {estafeta}";
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0)
+                return 0;
+
+            return int.Parse(dados.Rows[0]["total"].ToString());
+        }
         #endregion
 
         #region Menus
@@ -182,6 +178,20 @@ FROM orders_menus INNER JOIN menus on orders_menus.menu = menus.id INNER JOIN re
                 return null;
 
             return dados;
+        }
+        #endregion
+
+        #region Estafetas
+        public double GetTotalAngariado(int estafeta)
+        {
+            string sql = $"SELECT IIF(SUM(valor) is null, 0, SUM(valor)) as total FROM pagamentos WHERE courier = {estafeta}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0)
+                return 0;
+
+            return double.Parse(dados.Rows[0]["total"].ToString());
         }
         #endregion
     }

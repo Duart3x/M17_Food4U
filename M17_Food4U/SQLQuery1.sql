@@ -97,6 +97,7 @@ CREATE TABLE orders(
 	id int identity primary key,
 	[client] int references users(id),
 	[courier] int references users(id),
+	[address] int references addresses(id),
 	[state] int DEFAULT 1 check ([state] in ('1','2','3','4','5')),
 	deliveryDate Datetime default NULL,
 	createDate Datetime default getdate()
@@ -142,7 +143,6 @@ CREATE TABLE shopping_carts_menus(
 CREATE TRIGGER TR_CreateShoppingCart ON users
 AFTER INSERT
 AS
- 
 BEGIN
 	SET NOCOUNT ON;
  
@@ -152,8 +152,6 @@ BEGIN
  
     INSERT INTO shopping_carts([user]) VALUES (@UserId);
 END
-
-DROP TRIGGER TR_CalcStarsMenu
 
 CREATE TRIGGER TR_CalcStarsMenu ON menu_comments
 AFTER INSERT
@@ -176,4 +174,26 @@ BEGIN
 
 
 	UPDATE menus SET stars = (@totalstars / @NumComments) WHERE id = @MenuId
+END
+
+
+CREATE TRIGGER TR_CalcStarsMenu_DELETE ON menu_comments
+FOR DELETE
+AS
+BEGIN
+ 
+    DECLARE @MenuId INT;
+    DECLARE @NumComments INT;
+    DECLARE @totalstars INT;
+ 
+    SELECT @MenuId = deleted.menu FROM deleted;
+
+	SELECT @NumComments = COUNT(*) FROM menu_comments WHERE menu = @MenuId
+    IF @NumComments > 0 BEGIN
+	    SELECT @totalstars = SUM(stars) FROM menu_comments WHERE menu = @MenuId
+	    UPDATE menus SET stars = (@totalstars / @NumComments) WHERE id = @MenuId
+    END
+    ELSE BEGIN
+        UPDATE menus SET stars = 0 WHERE id = @MenuId
+    END
 END

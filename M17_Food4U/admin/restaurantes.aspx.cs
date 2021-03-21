@@ -90,6 +90,19 @@ namespace M17_Food4U.admin
             hldetalhes2.DataNavigateUrlFields = new string[] { "id" };
             dgv_restaurantes.Columns.Add(hldetalhes2);
 
+            DataColumn dcComentarios = new DataColumn();
+            dcComentarios.ColumnName = "Comentarios";
+            dcComentarios.DataType = Type.GetType("System.String");
+            dados.Columns.Add(dcComentarios);
+
+            HyperLinkField hlComentarios = new HyperLinkField();
+            hlComentarios.HeaderText = "Comentarios";
+            hlComentarios.DataTextField = "Comentarios";
+            hlComentarios.Text = "Comentarios";
+            hlComentarios.DataNavigateUrlFormatString = "~/admin/comentariosrestaurante.aspx?restaurante={0}";
+            hlComentarios.DataNavigateUrlFields = new string[] { "id" };
+            dgv_restaurantes.Columns.Add(hlComentarios);
+
             dgv_restaurantes.DataBind();
 
         }

@@ -143,12 +143,17 @@ namespace M17_Food4U.admin
                 LinkButton hlativo = new LinkButton();
                 hlativo.Text = "<i data-toggle='tooltip' data-placement='top' title='Ativar/Desativar' class='far fa-ban mr-3'></i>";
                 hlativo.OnClientClick = $"btnblockclick({id},{(estado == 1 ? "true" : "false")}); return false;";
-                
+
+                LinkButton hleditar = new LinkButton();
+                hleditar.Text = "<i data-toggle='tooltip' data-placement='top' title='Editar' class='far fa-edit text-warning mr-3'></i>";
+                hleditar.PostBackUrl = $"~/admin/editaruser.aspx?id={id}";
+
                 LinkButton hleliminar = new LinkButton();
                 hleliminar.Text = "<i data-toggle='tooltip' data-placement='top' title='Eliminar' class='far fa-trash-alt text-danger'></i>";
                 hleliminar.OnClientClick = $"btndeleteclick({id}); return false;";
 
                 e.Row.Cells[8].Controls.Add(hlativo);
+                e.Row.Cells[8].Controls.Add(hleditar);
                 e.Row.Cells[8].Controls.Add(hleliminar);
 
             }
