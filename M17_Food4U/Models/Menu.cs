@@ -35,6 +35,24 @@ namespace M17_Food4U.Models
 
         }
 
+        internal static bool IsMenuEnabled(int id_menu)
+        {
+            BaseDados bd = new BaseDados();
+            string sql = $"SELECT enabled,restaurant FROM menus WHERE id = {id_menu}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return false;
+
+            int id_restaurante = int.Parse(dados.Rows[0]["restaurant"].ToString());
+
+            if (!Restaurant.IsRestaurantEnabled(id_restaurante))
+                return false;
+
+            return bool.Parse(dados.Rows[0]["enabled"].ToString());
+        }
+
         public int Adicionar()
         {
             string sql = $@"INSERT INTO menus (restaurant, title, description, price) VALUES (@restaurant,@title,@description,@price); SELECT SCOPE_IDENTITY();";

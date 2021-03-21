@@ -55,7 +55,12 @@ namespace M17_Food4U.Models
         {
             BaseDados bd = new BaseDados();
 
-            string sql = $@"SELECT orders_menus.id, menus.title, orders_menus.quantity FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id WHERE [order] = {id_order}";
+            string sql = $@"SELECT orders_menus.id, menus.title, orders_menus.quantity,CASE
+                    WHEN orders_menus.[state] = 1 THEN 'Em espera'
+                    WHEN orders_menus.[state] = 2 THEN 'A ser preparado'
+                    WHEN orders_menus.[state] = 3 THEN 'Concluído'
+                    ELSE 'Desconhecido'
+                END AS Estado  FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id WHERE [order] = {id_order}";
 
             return bd.devolveSQL(sql);
         

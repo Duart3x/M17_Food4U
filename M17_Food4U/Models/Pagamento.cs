@@ -28,7 +28,7 @@ namespace M17_Food4U.Models
         {
             BaseDados bd = new BaseDados();
 
-            string sql = $"SELECT * FROM pagamentos WHERE [user] = {id_user} ORDER BY createDate";
+            string sql = $"SELECT IIF(restaurants.name is NULL, ' ' ,restaurants.name) as Restaurante, IIF(users.name is NULL, ' ' ,users.name) as Estafeta, pagamentos.saldo, valor, pagamentos.createDate as [Data] FROM pagamentos LEFT JOIN restaurants ON pagamentos.restaurant = restaurants.id LEFT JOIN [users] ON pagamentos.courier = users.id WHERE [user] = {id_user} ORDER BY pagamentos.createDate";
 
             return bd.devolveSQL(sql);
         }

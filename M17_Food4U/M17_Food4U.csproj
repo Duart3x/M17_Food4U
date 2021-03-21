@@ -68,9 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\dashboard.aspx" />
+    <Content Include="admin\detalhespedido.aspx" />
+    <Content Include="admin\editarmenu.aspx" />
+    <Content Include="admin\estadopedido.aspx" />
     <Content Include="admin\historicopedidos.aspx" />
     <Content Include="admin\historicotransacoes.aspx" />
     <Content Include="admin\pedidos.aspx" />
+    <Content Include="admin\restauranteedit.aspx" />
+    <Content Include="admin\restaurantemenus.aspx" />
     <Content Include="admin\restaurantes.aspx" />
     <Content Include="admin\users.aspx" />
     <Content Include="App_Data\bd.mdf" />
@@ -109,6 +114,27 @@
     <Compile Include="admin\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\detalhespedido.aspx.cs">
+      <DependentUpon>detalhespedido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\detalhespedido.aspx.designer.cs">
+      <DependentUpon>detalhespedido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\editarmenu.aspx.cs">
+      <DependentUpon>editarmenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\editarmenu.aspx.designer.cs">
+      <DependentUpon>editarmenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\estadopedido.aspx.cs">
+      <DependentUpon>estadopedido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\estadopedido.aspx.designer.cs">
+      <DependentUpon>estadopedido.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\historicopedidos.aspx.cs">
       <DependentUpon>historicopedidos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -136,6 +162,20 @@
     </Compile>
     <Compile Include="admin\pedidos.aspx.designer.cs">
       <DependentUpon>pedidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\restauranteedit.aspx.cs">
+      <DependentUpon>restauranteedit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\restauranteedit.aspx.designer.cs">
+      <DependentUpon>restauranteedit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\restaurantemenus.aspx.cs">
+      <DependentUpon>restaurantemenus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\restaurantemenus.aspx.designer.cs">
+      <DependentUpon>restaurantemenus.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\restaurantes.aspx.cs">
       <DependentUpon>restaurantes.aspx</DependentUpon>

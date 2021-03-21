@@ -24,8 +24,10 @@ namespace M17_Food4U.admin
                 return;
 
             dgv_transacoes.DataSource = Transacao.GetTransacoesUser(id_user);
-            dgv_pagamentos.DataSource = Pagamento.getPagamentosUser(id_user);
+            dgv_transacoes.DataBind();
 
+            dgv_pagamentos.DataSource = Pagamento.getPagamentosUser(id_user);            
+            dgv_pagamentos.DataBind();
         }
     }
 }

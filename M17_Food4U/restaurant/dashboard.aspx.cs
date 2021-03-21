@@ -27,6 +27,8 @@ namespace M17_Food4U.restaurant
             if (IsPostBack)
                 return;
 
+            
+
             txt_datepicker.Text = DateTime.Today.ToString("yyyy-MM-dd");
 
             dgv_pedidos.AllowPaging = true;
@@ -49,8 +51,9 @@ namespace M17_Food4U.restaurant
             int id_user = int.Parse(Session["id_user"].ToString());
             int id_restaurante = int.Parse((sender as DropDownList).SelectedValue.ToString());
             if (Restaurant.UserOwnsRestaurant(id_restaurante, id_user))
+            {
                 AtualizaGrid();
-
+            }
         }
 
         private void AtualizaGrid()

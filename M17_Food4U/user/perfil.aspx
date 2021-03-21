@@ -33,7 +33,8 @@
             </div>
         </div>
     </div>
-    <div class="mt-4 mb-5">
+
+    <div class="mt-4">
         <h2>Moradas</h2>
         <div class="w-100 mt-4 border p-3">
             <div>
@@ -85,6 +86,22 @@
             </div>
         </div>
     </div>
+
+    <div class="mt-4">
+         <h2>Transações</h2>
+        <asp:GridView runat="server" EmptyDataText="Sem Transações" CssClass="table" ID="dgv_transacoes" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
+    </div>
+
+    <div class="mt-4">
+         <h2>Pagamentos</h2>
+        <asp:GridView runat="server" EmptyDataText="Sem Pagamentos" CssClass="table" ID="dgv_pagamentos" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
+    </div>
+
+    <div class="mt-4 mb-5">
+         <h2>Pedidos</h2>
+        <asp:GridView runat="server" EmptyDataText="Sem Pedidos" CssClass="table" ID="dgv_pedidos" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
+    </div>
+
     <div class="modal fade" id="modal-confirm-password" tabindex="-1" aria-labelledby="ModalPassword" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

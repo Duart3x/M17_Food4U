@@ -12,6 +12,9 @@ namespace M17_Food4U.user
 {
     public partial class perfil : System.Web.UI.Page
     {
+        const int GRID_TRANS_PAGE_SIZE = 10;
+        const int GRID_PAGAM_PAGE_SIZE = 10;
+        const int GRID_PEDIDOS_PAGE_SIZE = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["perfil"] == null)
@@ -20,14 +23,67 @@ namespace M17_Food4U.user
             if (IsPostBack)
                 return;
 
+            dgv_transacoes.AllowPaging = true;
+            dgv_pagamentos.AllowPaging = true;
+            dgv_pedidos.AllowPaging = true;
+
+            dgv_transacoes.PageSize = GRID_TRANS_PAGE_SIZE;
+            dgv_pagamentos.PageSize = GRID_PAGAM_PAGE_SIZE;
+            dgv_pedidos.PageSize = GRID_PEDIDOS_PAGE_SIZE;
+
+            dgv_transacoes.PageIndexChanging += Dgv_transacoes_PageIndexChanging;
+            dgv_pagamentos.PageIndexChanging += Dgv_pagamentos_PageIndexChanging; ;
+            dgv_pedidos.PageIndexChanging += Dgv_pedidos_PageIndexChanging; ;
+
             AtualizarUser();
             AtualizarMoradas();
-            
+            AtualizarTransacoes();
 
             txt_email.Attributes.Add("readonly", "true");
             txt_nome.Attributes.Add("readonly", "true");
             txt_nif.Attributes.Add("readonly", "true");
             txt_data_nasc.Attributes.Add("readonly", "true");
+        }
+
+        private void Dgv_pedidos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgv_pedidos.PageIndex = e.NewPageIndex;
+            int id_user = int.Parse(Session["id_user"].ToString());
+
+            dgv_pedidos.DataSource = Orders.GetOrdersFromUserExtended(id_user);
+            dgv_pedidos.DataBind();
+        }
+
+        private void Dgv_pagamentos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgv_transacoes.PageIndex = e.NewPageIndex;
+            int id_user = int.Parse(Session["id_user"].ToString());
+
+            dgv_pagamentos.DataSource = Pagamento.getPagamentosUser(id_user);
+            dgv_pagamentos.DataBind();
+        }
+
+        private void Dgv_transacoes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgv_transacoes.PageIndex = e.NewPageIndex;
+            int id_user = int.Parse(Session["id_user"].ToString());
+
+            dgv_transacoes.DataSource = Transacao.GetTransacoesUser(id_user);
+            dgv_transacoes.DataBind();
+        }
+
+        private void AtualizarTransacoes()
+        {
+            int id_user = int.Parse(Session["id_user"].ToString());
+            
+            dgv_transacoes.DataSource = Transacao.GetTransacoesUser(id_user);
+            dgv_transacoes.DataBind();
+
+            dgv_pagamentos.DataSource = Pagamento.getPagamentosUser(id_user);
+            dgv_pagamentos.DataBind();
+
+            dgv_pedidos.DataSource = Orders.GetOrdersFromUserExtended(id_user);
+            dgv_pedidos.DataBind();
         }
 
         private void AtualizarMoradas()

@@ -348,6 +348,33 @@ namespace M17_Food4U.user
         protected global::System.Web.UI.WebControls.Label lb_erro_morada3;
 
         /// <summary>
+        /// dgv_transacoes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgv_transacoes;
+
+        /// <summary>
+        /// dgv_pagamentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgv_pagamentos;
+
+        /// <summary>
+        /// dgv_pedidos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgv_pedidos;
+
+        /// <summary>
         /// txt_password control.
         /// </summary>
         /// <remarks>

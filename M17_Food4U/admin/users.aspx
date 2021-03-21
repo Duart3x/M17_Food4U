@@ -5,7 +5,6 @@
     <h2 class="mt-5">Utilizadores</h2>
     <asp:GridView OnRowDataBound="dgv_utilizadores_RowDataBound" runat="server" EmptyDataText="Sem Utilizadores" CssClass="table" ID="dgv_utilizadores" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
 
-
     <div class="modal fade" id="modal-confirm-delete" tabindex="-1" aria-labelledby="ModalBloquear" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

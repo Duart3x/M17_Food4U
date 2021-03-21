@@ -18,8 +18,16 @@ namespace M17_Food4U.restaurant
 
             if (IsPostBack)
                 return;
+            
+            
 
             AtualizarRestaurantes();
+
+            int id_restaurante = int.Parse(dp_restaurantes.SelectedValue.ToString());
+            var lb_restsaldo = (Page.Master.FindControl("lb_restsaldo") as Label);
+
+            Restaurant restaurant = Restaurant.GetRestaurante(id_restaurante);
+            lb_restsaldo.Text = restaurant.saldo.ToString("C2");
 
         }
 
@@ -36,11 +44,19 @@ namespace M17_Food4U.restaurant
 
                 foreach (DataRow row in dados.Rows)
                 {
-                    dp_restaurantes.Items.Add(new ListItem(row["name"].ToString(), row["id"].ToString()));
+                    bool enabled = bool.Parse(row["enabled"].ToString());
+
+                    dp_restaurantes.Items.Add(new ListItem(row["name"].ToString() + (enabled ? "": " (Bloqueado)"), row["id"].ToString()));
                 }
 
                 if (Session["id_restaurante"] != null)
+                {
                     dp_restaurantes.SelectedValue = Session["id_restaurante"].ToString();
+                    
+                }
+                    
+
+               
             }
             catch (Exception erro)
             {
@@ -63,6 +79,11 @@ namespace M17_Food4U.restaurant
         protected void dp_restaurantes_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["id_restaurante"] = dp_restaurantes.SelectedValue.ToString();
+
+            var lb_restsaldo = (Page.Master.FindControl("lb_restsaldo") as Label);
+
+            Restaurant restaurant = Restaurant.GetRestaurante(int.Parse(Session["id_restaurante"].ToString()));
+            lb_restsaldo.Text = restaurant.saldo.ToString("C2");
         }
     }
 }

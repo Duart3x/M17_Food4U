@@ -21,8 +21,15 @@ namespace M17_Food4U
                     Response.Redirect("~/index.aspx");
                     return;
                 }
-            
-
+                else
+                {
+                    int id_menu = int.Parse(Request["id"].ToString());
+                    if(!Models.Menu.IsMenuEnabled(id_menu))
+                    {
+                        Response.Redirect("~/index.aspx");
+                        return;
+                    }
+                }
             }
             catch (Exception erro)
             {
@@ -43,8 +50,6 @@ namespace M17_Food4U
             LoadMenuInfo();
 
             LoadComments();
-
-            
         }
 
         private void LoadComments()

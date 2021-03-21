@@ -17,6 +17,7 @@ namespace M17_Food4U.Models
         public string city { get; set; }
         public string cp { get; set; }
         public string address { get; set; }
+        public double saldo { get; set; }
         public bool enabled { get; set; }
 
         BaseDados bd;
@@ -48,6 +49,8 @@ namespace M17_Food4U.Models
             restaurant1.name = dados.Rows[0]["name"].ToString();
             restaurant1.city = dados.Rows[0]["city"].ToString();
             restaurant1.cp = dados.Rows[0]["cp"].ToString();
+            restaurant1.saldo = double.Parse(dados.Rows[0]["saldo"].ToString());
+
             restaurant1.address = dados.Rows[0]["address"].ToString();
             restaurant1.enabled = bool.Parse(dados.Rows[0]["enabled"].ToString());
 
@@ -61,8 +64,6 @@ namespace M17_Food4U.Models
             string sql = $@"SELECT * FROM restaurants WHERE owner = {id_user}";
 
             return bd.devolveSQL(sql);
-
-            
         }
 
         public static DataTable ListarRestaurantesDiponiveis()
@@ -123,6 +124,45 @@ namespace M17_Food4U.Models
                 throw new Exception(erro.Message);
             }
             
+        }
+
+        internal void Atualizar()
+        {
+            string sql = "UPDATE restaurants SET name = @name, city = @city, cp = @cp, address = @address WHERE id = @id";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName="@name",
+                    SqlDbType=SqlDbType.VarChar,
+                    Value=this.name
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@city",
+                    SqlDbType=SqlDbType.VarChar,
+                    Value=this.city
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@cp",
+                    SqlDbType=SqlDbType.VarChar,
+                    Value=this.cp
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@address",
+                    SqlDbType=SqlDbType.VarChar,
+                    Value=this.address
+                },
+                new SqlParameter()
+                {
+                    ParameterName="@id",
+                    SqlDbType=SqlDbType.Int,
+                    Value=this.id
+                },
+            };
+            bd.executaSQL(sql, parametros);
         }
 
         public int AdicionarRestauranteOwner(User utilizador)
@@ -247,7 +287,6 @@ namespace M17_Food4U.Models
             }
            
         }
-
         internal static bool OwnsOrderMenu(int id_restaurante, int id_order)
         {
             BaseDados bd = new BaseDados();
@@ -330,7 +369,6 @@ namespace M17_Food4U.Models
 
             return true;
         }
-
         public static bool RestaurantOwnsMenu(int restaurante, int id_menu)
         {
             BaseDados bd = new BaseDados();
@@ -359,7 +397,6 @@ menus.price, menus.stars, menus.stock,menus.[enabled]";
 
             return bd.devolveSQL(sql, parametros);
         }
-
         public static DataTable ListarMenusRestaurante(int id_restaurante)
         {
             BaseDados bd = new BaseDados();
@@ -374,6 +411,56 @@ menus.price, menus.stars, menus.stock,menus.[enabled]";
             };
 
             return bd.devolveSQL(sql, parametros);
+        }
+
+        static public DataTable GetRestaurantes()
+        {
+            BaseDados bd = new BaseDados();
+            string sql = @"SELECT restaurants.id,restaurants.name, users.[name] as [owner], restaurants.city, restaurants.[address], restaurants.cp, restaurants.[enabled], restaurants.saldo  FROM restaurants INNER JOIN users ON restaurants.[owner] = users.id";
+
+            return bd.devolveSQL(sql);
+        }
+
+        internal static void DeleteRestaurante(int num_id_restaurante)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $"DELETE FROM restaurants WHERE id = {num_id_restaurante}";
+
+            bd.executaSQL(sql);
+        }
+
+        internal static void ToggleRestaurante(int num_id_restaurante, bool state)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $"UPDATE restaurants SET enabled = @state WHERE id = {num_id_restaurante}";
+
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter()
+                {
+                    ParameterName="@state",
+                    SqlDbType=SqlDbType.Bit,
+                    Value=state
+                }
+            };
+
+            bd.executaSQL(sql,parametros);
+        }
+
+        public static bool IsRestaurantEnabled(int id_restaurante)
+        {
+            BaseDados bd = new BaseDados();
+            string sql = $"SELECT enabled FROM restaurants WHERE id = {id_restaurante}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return false;
+
+            return bool.Parse(dados.Rows[0]["enabled"].ToString());
+
         }
     }
 }

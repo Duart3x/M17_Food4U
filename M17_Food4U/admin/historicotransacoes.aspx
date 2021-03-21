@@ -7,6 +7,6 @@
     
     <h2 class="mt-5">Histórico Pagamentos</h2>
     <asp:GridView runat="server" EmptyDataText="Sem Pagamentos" CssClass="table" ID="dgv_pagamentos" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
-
+    <asp:Button Text="Voltar" CssClass="btn btn-secondary" PostBackUrl="~/admin/users.aspx" runat="server" />
 
 </asp:Content>

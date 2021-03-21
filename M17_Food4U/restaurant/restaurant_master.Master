@@ -31,6 +31,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+
     <form id="form1" runat="server">
         <div>
              <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
@@ -48,6 +49,10 @@
                     </div>
                     
                     <div class="d-flex align-items-center justify-content-end">
+                       <span>
+                            <b>Saldo: </b>
+                           <asp:Label Text="" ID="lb_restsaldo" runat="server" />
+                        </span>
                         <div class="shop-cart mr-4">
                             <button  ID="btn_user" onserverclick="btn_user_Click" CausesValidation="false" runat="server" class="border-0 bg-transparent"> <i class='far fa-user' style='font-size: 25px; cursor: pointer;'></i> </button>
                         </div>

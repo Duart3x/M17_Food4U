@@ -11,17 +11,17 @@ namespace M17_Food4U.restaurant
 {
     public partial class menus : System.Web.UI.Page
     {
-        const int GRID_PAGE_SIZE = 5;
+        const int GRID_PAGE_SIZE = 10;
         protected void Page_Load(object sender, EventArgs e)
         {
             var dp_restaurantes = (Page.Master.FindControl("dp_restaurantes") as DropDownList);
+            
+
             int id_restaurante = int.Parse(dp_restaurantes.SelectedValue.ToString());
 
             int id_user = int.Parse(Session["id_user"].ToString());
             if (!Restaurant.UserOwnsRestaurant(id_restaurante, id_user))
                 Response.Redirect("~/restaurant/dashboard.aspx");
-
-            
 
             dgv_menus.AllowPaging = true;
             dgv_menus.PageSize = GRID_PAGE_SIZE;

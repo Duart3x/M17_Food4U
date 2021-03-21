@@ -21,7 +21,15 @@ namespace M17_Food4U
                     Response.Redirect("~/index.aspx");
                     return;
                 }
-
+                else
+                {
+                    int id_restaurante = int.Parse(Request["id"].ToString());
+                    if (!Restaurant.IsRestaurantEnabled(id_restaurante))
+                    {
+                        Response.Redirect("~/index.aspx");
+                        return;
+                    }
+                }
 
             }
             catch (Exception erro)

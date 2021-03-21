@@ -27,7 +27,7 @@ CREATE TABLE users(
 );
 
 CREATE TABLE transacoes(
-	id int primary key,
+	id int identity primary key,
 	[user] int not null references users(id),
 	[source] varchar(100) not null,
 	saldo DECIMAL(19,4) not null,
@@ -36,7 +36,7 @@ CREATE TABLE transacoes(
 );
 
 CREATE TABLE pagamentos(
-	id int primary key,
+	id int identity primary key,
 	[user] int not null references users(id),
 	[restaurant] int references restaurants(id),
 	[courier] int references users(id),
@@ -60,6 +60,7 @@ CREATE TABLE restaurants(
 	[city] varchar(100) not null,
 	[cp] varchar(8) not null check(cp like '____-___'),
 	[address] varchar(100) not null,
+	saldo DECIMAL(19,4) not null default 0,
 	[enabled] bit DEFAULT 1
 );
 
