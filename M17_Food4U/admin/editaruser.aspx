@@ -11,6 +11,6 @@
             <asp:ListItem Value="3" Text="Utilizador" />
         </asp:RadioButtonList>
         <asp:Button Text="Confimar" id="btn_confimar" OnClick="btn_confimar_Click" CssClass="btn btn-primary btn-lg" runat="server" />
-        <asp:Button Text="Voltar" CssClass="btn btn-secondary btn-lg" PostBackUrl="~/admin/users .aspx" runat="server" />
+        <asp:Button Text="Voltar" CssClass="btn btn-secondary btn-lg" PostBackUrl="~/admin/users.aspx" runat="server" />
     </div>
 </asp:Content>

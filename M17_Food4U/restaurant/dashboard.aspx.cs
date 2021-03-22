@@ -134,10 +134,10 @@ namespace M17_Food4U.restaurant
 
                     HyperLinkField hlestado = new HyperLinkField();
                     hlestado.HeaderText = "Alterar Estado";
-                    hlestado.DataTextField = "Alterar_Estado"; // columname do datatable
-                    hlestado.Text = "Alterar Estado"; // Texto da celula
+                    hlestado.DataTextField = "Alterar_Estado"; 
+                    hlestado.Text = "Alterar Estado"; 
                     hlestado.DataNavigateUrlFormatString = "alterarestado.aspx?id={0}";
-                    hlestado.DataNavigateUrlFields = new string[] { "ID Pedido" }; // Nome do campo a preencher a query string
+                    hlestado.DataNavigateUrlFields = new string[] { "ID Pedido" }; 
                     dgv_pedidos.Columns.Add(hlestado);
 
                     dgv_pedidos.DataBind();

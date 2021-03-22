@@ -339,17 +339,21 @@ namespace M17_Food4U.Models
 
             if (data != null)
             {
+                DateTime useInicio = new DateTime();
+                DateTime useFim = new DateTime();
+
                 if (Inicio != null)
-                    Inicio = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, Inicio.Value.Hour, Inicio.Value.Minute, Inicio.Value.Second);
+                    useInicio = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, Inicio.Value.Hour, Inicio.Value.Minute, Inicio.Value.Second);
                 else
-                    Inicio = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, 0, 0, 0);
+                    useInicio = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, 0, 0, 0);
 
                 if (Fim != null)
-                    Fim = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, Fim.Value.Hour, Fim.Value.Minute, Fim.Value.Second);
+                    useFim = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, Fim.Value.Hour, Fim.Value.Minute, Fim.Value.Second);
                 else
-                    Fim = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, 23, 59, 59);
+                    useFim = new DateTime(data.Value.Year, data.Value.Month, data.Value.Day, 23, 59, 59);
 
-                sql += $" AND orders.createDate between CONVERT(datetime,'{Inicio.ToString()}') AND CONVERT(datetime,'{Fim.ToString()}')";
+
+                sql += $" AND orders.createDate between CONVERT(datetime,'{useInicio.ToString("yyyy-MM-dd HH:mm:ss")}') AND CONVERT(datetime,'{useFim.ToString("yyyy-MM-dd HH:mm:ss")}')";
 
             }
 
