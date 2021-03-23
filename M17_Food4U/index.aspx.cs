@@ -80,13 +80,13 @@ namespace M17_Food4U
 
                 int aleatorio = new Random().Next(999999);
 
-                cards += $@"<div class='card product_card' style='width: 18rem;' >
-                               <img onclick='showMenu({id})' src = '/Public/images/menus/{id}.jpg?{aleatorio}' class='card-img-top' alt='{title}'>
-                              <div class='card-body' onclick='showMenu({id})'>
+                cards += $@"<div class='card product_card' onclick='showMenu({id})' style='width: 18rem;' >
+                               <img  src='/Public/images/menus/{id}.jpg?{aleatorio}' class='card-img-top' alt='{title}'>
+                              <div class='card-body'>
                                 <h5 class='card-title'>{title}</h5>
                                 <p class='card-text'>{description}</p>
                               </div>
-                                <div class='card-footer d-flex justify-content-between align-items-center'>
+                                <div  class='card-footer d-flex justify-content-between align-items-center'>
                                     {(hasStock ? $@"<span>{price.ToString("C2")}</span>
                                     <span data-toggle='tooltip' data-placement='top' title='Adicionar ao carrinho' class='add-cart'><i class='fad fa-shopping-cart mr-2' ></i><i class='far fa-plus-square'></i></span>" : "<span>Artigo fora de stock</span>")}
                                 </div>

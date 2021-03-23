@@ -273,6 +273,7 @@
       <DependentUpon>menu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\MenuComment.cs" />
     <Compile Include="Models\Orders.cs" />

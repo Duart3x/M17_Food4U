@@ -1,4 +1,5 @@
 ﻿using M17_Food4U.Classes;
+using M17_Food4U.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,6 +32,21 @@ namespace M17_Food4U
                 Session["nome"] = dados.Rows[0]["name"].ToString();
                 Session["id_user"] = dados.Rows[0]["id"].ToString();
                 Session["perfil"] = dados.Rows[0]["perfil"].ToString();
+
+                var carrinho = Request.Cookies["carrinho"];
+                if (carrinho != null)
+                {
+                    int id_user = int.Parse(dados.Rows[0]["id"].ToString());
+                    foreach (var item in carrinho.Values.AllKeys)
+                    {
+                        int id_menu = int.Parse(item);
+                        int quantidade = int.Parse(carrinho.Values[item]);
+
+                        ShoppingCart.InsertMenuCarrinho(id_user, id_menu, quantidade);
+                    }
+                    carrinho.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Set(carrinho);
+                }
 
                 Response.Redirect("/index.aspx");
             }

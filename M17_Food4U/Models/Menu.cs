@@ -88,6 +88,27 @@ namespace M17_Food4U.Models
 
             return id;
         }
+        public Menu GetMenuInter(int id_menu)
+        {
+            string sql = $"SELECT * FROM menus WHERE id = {id_menu}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return null;
+
+            Menu menu = new Menu();
+            menu.id = id_menu;
+            menu.restaurant = int.Parse(dados.Rows[0]["restaurant"].ToString());
+            menu.title = dados.Rows[0]["title"].ToString();
+            menu.description = dados.Rows[0]["description"].ToString();
+            menu.stock = bool.Parse(dados.Rows[0]["stock"].ToString());
+            menu.stars = int.Parse(dados.Rows[0]["stars"].ToString());
+            menu.price = double.Parse(dados.Rows[0]["price"].ToString());
+            menu.enabled = bool.Parse(dados.Rows[0]["enabled"].ToString());
+
+            return menu;
+        }
 
         internal static Menu GetMenu(int id_menu)
         {

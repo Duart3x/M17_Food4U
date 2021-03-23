@@ -26,7 +26,7 @@
                 </div>
             </div>
             
-            <asp:Button ID="btn_adicionarcarrinho" CausesValidation="false" Text="Adicionar ao carrinho" CssClass="btn btn-lg btn-success" runat="server" />
+            <asp:Button ID="btn_adicionarcarrinho" OnClick="btn_adicionarcarrinho_Click" CausesValidation="false" Text="Adicionar ao carrinho" CssClass="btn btn-lg btn-success" runat="server" />
         </div>
         <div class="w-50" id="div_comentarios">
             <h1>Comentários</h1>

@@ -29,5 +29,11 @@ namespace M17_Food4U
 
             return new JavaScriptSerializer().Serialize(pesquisa);
         }
+
+        [WebMethod]
+        public void RemoverProductCarrinho(int menu, int user)
+        {
+            ShoppingCart.AlterarQuantidadeMenu(user, menu, -1);
+        }
     }
 }

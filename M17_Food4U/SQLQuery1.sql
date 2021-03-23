@@ -119,6 +119,7 @@ orders_menus
 - A ser preparada
 - Concluida
 */
+
 CREATE TABLE orders_menus(
 	id int identity primary key,
 	[menu] int references menus(id),
@@ -127,31 +128,13 @@ CREATE TABLE orders_menus(
 	[state] int DEFAULT 1 check ([state] in ('1','2','3'))
 );
 
-
-CREATE TABLE shopping_carts(
-	id int identity primary key,
-	[user] int references users(id)
-);
-
 CREATE TABLE shopping_carts_menus(
 	id int identity primary key,
-	[shopping_carts] int references shopping_carts(id),
+	[user] int references users(id),
+	[quantity] INT NOT NULL check([quantity]>(0) AND [quantity]<=(5)),
 	[menu] int references menus(id),
 	insertdate datetime DEFAULT getdate()
 );
-
-CREATE TRIGGER TR_CreateShoppingCart ON users
-AFTER INSERT
-AS
-BEGIN
-	SET NOCOUNT ON;
- 
-    DECLARE @UserId INT;
- 
-    SELECT @UserId = INSERTED.id FROM INSERTED;
- 
-    INSERT INTO shopping_carts([user]) VALUES (@UserId);
-END
 
 CREATE TRIGGER TR_CalcStarsMenu ON menu_comments
 AFTER INSERT

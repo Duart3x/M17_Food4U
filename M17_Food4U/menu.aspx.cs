@@ -172,5 +172,48 @@ namespace M17_Food4U
             
                 
         }
+
+        protected void btn_adicionarcarrinho_Click(object sender, EventArgs e)
+        {
+            int id_menu = int.Parse(Request["id"].ToString());
+
+            if (Session["id_user"] != null)
+            {
+                int id_user = int.Parse(Session["id_user"].ToString());
+
+                ShoppingCart.InsertMenuCarrinho(id_user,id_menu,1);
+            }
+            else
+            {
+                var bolachaCarrinho = Request.Cookies.Get("carrinho");
+                if(bolachaCarrinho != null)
+                {
+                    var quantidade = bolachaCarrinho.Values.Get(id_menu.ToString());
+                    if(quantidade != null)
+                    {
+                        if(int.Parse(quantidade) + 1 <= 5)
+                        {
+                            bolachaCarrinho.Values[id_menu.ToString()] = (int.Parse(quantidade) + 1).ToString();
+                            Response.Cookies.Set(bolachaCarrinho);
+                        }
+                    }
+                    else
+                    {
+                        bolachaCarrinho.Values.Add(id_menu.ToString(), 1.ToString());
+                        Response.Cookies.Set(bolachaCarrinho);
+                    }
+                }
+                else
+                {
+                    var carrinho = new HttpCookie("carrinho");
+                    carrinho.Values.Add(id_menu.ToString(), 1.ToString());
+                    carrinho.Expires = DateTime.Now.AddDays(5);
+                    Response.Cookies.Add(carrinho);
+                }
+            }
+
+            ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowCartNotification('Produto adicionado','Produto adicionado com sucesso', 'success')", true);
+            /*Response.Redirect(Request.RawUrl);*/
+        }
     }
 }
