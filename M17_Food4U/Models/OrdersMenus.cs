@@ -27,6 +27,13 @@ namespace M17_Food4U.Models
             this.id = id;
         }
 
+        public void CriarOrderMenu(int id_order)
+        {
+            string sql = $"INSERT INTO orders_menus(menu,[order],quantity) VALUES({this.menu},{id_order},{this.quantity})";
+
+            bd.executaSQL(sql);
+        }
+
         public void AlterarEstado(int novo_estado)
         {
             string sql = "UPDATE orders_menus SET [state] = @estado WHERE id = @id";

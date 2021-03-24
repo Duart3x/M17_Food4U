@@ -13,7 +13,7 @@ function ShowCartNotification(title,message,type) {
         icon: type,
         showHideTransition: 'fade',
         allowToastClose: false,
-        hideAfter: 3000,
+        hideAfter: 1000,
         stack: 10,
         position: 'bottom-left',
         textAlign: 'left',
@@ -22,5 +22,21 @@ function ShowCartNotification(title,message,type) {
         beforeHide: function () {
             window.location.href = window.location.href
         }
+    });
+}
+
+function ShowNotification(title, message, type) {
+    $.toast({
+        text: message,
+        heading: title,
+        icon: type,
+        showHideTransition: 'fade',
+        allowToastClose: false,
+        hideAfter: 3000,
+        stack: 10,
+        position: 'top-right',
+        textAlign: 'left',
+        loader: false,
+        loaderBg: '#9EC600'
     });
 }

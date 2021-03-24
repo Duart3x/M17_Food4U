@@ -22,7 +22,7 @@
        <div class="form-group">
             <label for="ContentPlaceHolder1_FileUpload1">Foto do menu</label>
             
-            <asp:FileUpload CssClass="form-control-file" ID="FileUpload1"  onchange="UploadFile(this)" runat="server" />
+            <asp:FileUpload CssClass="form-control-file" ID="FileUpload1" onchange="UploadFile(this)" runat="server" />
         </div>
         <div class="alert alert-danger" visible="false" id="div_erro" runat="server">
             <asp:Label ID="lb_erro"  Text="" runat="server" />
@@ -47,7 +47,6 @@
                 else {
 
                 }
-
             }
         }
     </script>

@@ -85,6 +85,7 @@
     <Content Include="App_Data\bd_log.ldf">
       <DependentUpon>bd.mdf</DependentUpon>
     </Content>
+    <Content Include="checkout.aspx" />
     <Content Include="estafeta\dashboard.aspx" />
     <Content Include="estafeta\pedidos.aspx" />
     <Content Include="index.aspx" />
@@ -216,6 +217,13 @@
     </Compile>
     <Compile Include="admin\users.aspx.designer.cs">
       <DependentUpon>users.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="checkout.aspx.cs">
+      <DependentUpon>checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="checkout.aspx.designer.cs">
+      <DependentUpon>checkout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\BaseDados.cs" />
     <Compile Include="Classes\Estatisticas.cs" />

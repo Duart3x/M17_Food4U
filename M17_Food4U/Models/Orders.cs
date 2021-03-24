@@ -23,6 +23,17 @@ namespace M17_Food4U.Models
             bd = new BaseDados();
         }
 
+        public static int CriarPedido(int cliente,int address)
+        {            
+            BaseDados bd = new BaseDados();
+
+            string sql = $"INSERT INTO orders(client,address) VALUES ({cliente},{address}); SELECT SCOPE_IDENTITY();";
+            DataTable dados = bd.devolveSQL(sql);
+            int id = int.Parse(dados.Rows[0].ItemArray[0].ToString());
+
+            return id;
+        }
+
         public static DataTable GetOrdersFromUser(int id_user)
         {
             BaseDados bd = new BaseDados();
@@ -45,8 +56,8 @@ FROM orders WHERE client = {id_user};";
                     WHEN orders.[state] = 5 THEN 'Cancelado'
                     ELSE 'Desconhecido'
                 END AS Estado, orders.createDate as [Data]
-                FROM orders, orders_menus, menus, users 
-                WHERE orders.id = orders_menus.[order] AND orders_menus.menu = menus.id AND orders.courier = users.id
+                FROM orders LEFT JOIN users on orders.courier = users.id, orders_menus, menus 
+                WHERE orders.id = orders_menus.[order] AND orders_menus.menu = menus.id
                 AND orders.client = {id_user};";
 
             return bd.devolveSQL(sql);
@@ -143,8 +154,8 @@ FROM orders WHERE client = {id_user};";
                         WHEN orders.[state] = 5 THEN 'Cancelado'
                         ELSE 'Desconhecido'
                     END AS Estado, orders.createDate as [Data]
-                    FROM orders, users as users1, users as users2
-                    WHERE orders.courier = users1.id AND orders.client = users2.id";
+                    FROM orders LEFT JOIN users as users1 on orders.courier = users1.id, users as users2
+                    WHERE orders.client = users2.id";
 
             return bd.devolveSQL(sql);
         }

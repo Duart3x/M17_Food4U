@@ -23,6 +23,8 @@ namespace M17_Food4U.restaurant
 
             AtualizarRestaurantes();
 
+            if (dp_restaurantes.Items.Count <= 0 || dp_restaurantes.Items[0].Text == "Sem resultados")
+                return;
             int id_restaurante = int.Parse(dp_restaurantes.SelectedValue.ToString());
             var lb_restsaldo = (Page.Master.FindControl("lb_restsaldo") as Label);
 
@@ -39,8 +41,8 @@ namespace M17_Food4U.restaurant
 
                 DataTable dados = Restaurant.ListarRestaurantesUser(id_user);
 
-                if (dados.Rows.Count == 0)
-                    throw new Exception("Sem resultados");
+                if (dados.Rows.Count <= 0 && Request.Url.LocalPath != "/restaurant/novorestaurante.aspx")
+                    Response.Redirect("/restaurant/novorestaurante.aspx");
 
                 foreach (DataRow row in dados.Rows)
                 {
@@ -53,10 +55,7 @@ namespace M17_Food4U.restaurant
                 {
                     dp_restaurantes.SelectedValue = Session["id_restaurante"].ToString();
                     
-                }
-                    
-
-               
+                }               
             }
             catch (Exception erro)
             {

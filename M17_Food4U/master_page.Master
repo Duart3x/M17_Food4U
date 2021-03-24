@@ -53,7 +53,6 @@
                         <a class="navbar-brand" style="font-family: 'Raleway', sans-serif" href="/admin/dashboard.aspx" id="btn_administracao">Dashboard</a>
                         <% } %>
                     </div>
-
                     <% if (Request.Url.LocalPath == "/index.aspx" || Request.Url.LocalPath == "/menu.aspx" || Request.Url.LocalPath == "/restaurante.aspx")
                         { %>
                     <div class="search-bar">
@@ -61,6 +60,10 @@
                     </div>
                     <% } %>
                     <div class="d-flex align-items-center justify-content-end">
+                        <span id="span_saldo" runat="server" visible="false">
+                            <b>Saldo: </b>
+                           <asp:Label Text="" ID="lb_saldouser" runat="server" />
+                        </span>
                         <div class="shop-cart mr-4">
                             <button id="btn_user" onserverclick="btn_user_Click" causesvalidation="false" runat="server" class="border-0 bg-transparent"><i class='far fa-user' style='font-size: 25px; cursor: pointer;'></i></button>
                         </div>
@@ -84,7 +87,7 @@
 
                     </div>
                     <footer  class="mt-2">
-                        <asp:Button Text="Finalizar" CssClass="btn btn-block btn-outline-success" runat="server" />
+                        <asp:Button Text="Finalizar" PostBackUrl="~/checkout.aspx" CssClass="btn btn-block btn-outline-success" runat="server" />
                     </footer>
                 </div>
             </div>
@@ -242,9 +245,10 @@
               },
           });*/
         if (user != null) {
-            $.post("/servicos.asmx/RemoverProductCarrinho", {
+            $.post("/servicos.asmx/AlterarQuantidadeMenu", {
                 menu: menu,
-                user: user
+                user: user,
+                quantidade: -1
             });
         $.toast({
             text: "Produto removido com sucesso",
@@ -252,7 +256,7 @@
             icon: 'success',
             showHideTransition: 'fade',
             allowToastClose: false,
-            hideAfter: 3000,
+            hideAfter: 1000,
             stack: 10,
             position: 'bottom-left',
 
@@ -291,7 +295,7 @@
                 icon: 'success',
                 showHideTransition: 'fade',
                 allowToastClose: false,
-                hideAfter: 3000,
+                hideAfter: 1000,
                 stack: 10,
                 position: 'bottom-left',
 

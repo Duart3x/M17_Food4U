@@ -26,8 +26,8 @@
         <p><b>Cidade: </b><span id="lb_city" runat="server"></span></p>
         <p><b>Código Postal: </b><span id="lb_cp" runat="server"></span></p>
         <p><b>Morada: </b><span id="lb_morada" runat="server"></span></p>
+        <asp:GridView OnRowDataBound="dgv_pedidoinfo_RowDataBound" runat="server" EmptyDataText="Sem Menus" CssClass="table" ID="dgv_pedidoinfo" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
     </div>
 
-    <asp:GridView OnRowDataBound="dgv_pedidoinfo_RowDataBound" runat="server" EmptyDataText="Sem Menus" CssClass="table" ID="dgv_pedidoinfo" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
     
 </asp:Content>

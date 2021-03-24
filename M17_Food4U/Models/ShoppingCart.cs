@@ -65,9 +65,38 @@ namespace M17_Food4U.Models
         {
             BaseDados bd = new BaseDados();
             
-            string sql = $"SELECT shopping_carts.id,menus.title as Menu,menus.price as preco, menus.description as descricao, menus.id as MenuId, shopping_carts.quantity as Quantidade FROM shopping_carts INNER JOIN menus ON shopping_carts.menu = menus.id WHERE [user] = {id_user} ORDER BY insertdate";
+            string sql = $@"SELECT shopping_carts.id,menus.title as Menu,menus.price as preco, 
+                        menus.description as descricao, menus.id as MenuId, shopping_carts.quantity as Quantidade 
+                        FROM shopping_carts INNER JOIN menus ON shopping_carts.menu = menus.id 
+                        WHERE [user] = {id_user} ORDER BY insertdate";
 
             return bd.devolveSQL(sql);
         }
+
+        public static void DeleteCarrinho(int id_user)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $"DELETE FROM shopping_carts WHERE [user] = {id_user}";
+
+            bd.executaSQL(sql);
+        }
+
+        public static double GetCarrinhoValue(int id_user)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $@"SELECT SUM(menus.price * quantity) as valor
+                        FROM shopping_carts INNER JOIN menus ON shopping_carts.menu = menus.id 
+                        WHERE [user] = {id_user}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count <= 0)
+                return 0;
+            
+            return double.Parse(dados.Rows[0]["valor"].ToString());
+        }
+
     }
 }

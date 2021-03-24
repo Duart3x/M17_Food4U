@@ -31,9 +31,10 @@ namespace M17_Food4U
         }
 
         [WebMethod]
-        public void RemoverProductCarrinho(int menu, int user)
+        public void AlterarQuantidadeMenu(int menu, int user,int quantidade)
         {
-            ShoppingCart.AlterarQuantidadeMenu(user, menu, -1);
+            ShoppingCart.AlterarQuantidadeMenu(user, menu, quantidade);
         }
+
     }
 }

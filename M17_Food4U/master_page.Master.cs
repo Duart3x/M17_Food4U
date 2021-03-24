@@ -15,15 +15,27 @@ namespace M17_Food4U
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack)
+                return;
             AtualizaCarrinho();
         }
 
         private void AtualizaCarrinho()
         {
+            
+
             list_products.InnerHtml = "";
             if (Session["id_user"] != null)
             {
+                
                 int id_user = int.Parse(Session["id_user"].ToString());
+
+                Models.User user = new User(id_user);
+                lb_saldouser.Text = user.getSaldo().ToString("C2");
+                span_saldo.Visible = true;
+
+
+
                 DataTable dados = ShoppingCart.GetCarrinhoFromUser(id_user);
                 //id, Menu, MenuId, Quantidade
                 int total_menus = 0;
@@ -42,7 +54,7 @@ namespace M17_Food4U
                     list_products.InnerHtml += $@"
                     <div class='product'>
                         <a href='menu.aspx?id={id_menu}'>                            
-                            <img src='Public/images/menus/{id_menu}.jpg?{aleatorio}' class='img-thumbnail' style='max-height: 136px;' alt='{menu}' />
+                            <img src='/Public/images/menus/{id_menu}.jpg?{aleatorio}' class='img-thumbnail' style='max-height: 136px;' alt='{menu}' />
                         </a>
                         <div class='product_details ml-4'>
                             <div>
@@ -93,7 +105,7 @@ namespace M17_Food4U
                     list_products.InnerHtml += $@"
                     <div class='product'>
                         <a href='menu.aspx?id={id_menu}'>                            
-                            <img src='Public/images/menus/{id_menu}.jpg?{aleatorio}' class='img-thumbnail' style='max-height: 136px;' alt='{menuobj.title}' />
+                            <img src='/Public/images/menus/{id_menu}.jpg?{aleatorio}' class='img-thumbnail' style='max-height: 136px;' alt='{menuobj.title}' />
                         </a>
                         <div class='product_details ml-4'>
                             <div>

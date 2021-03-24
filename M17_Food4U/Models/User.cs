@@ -25,6 +25,17 @@ namespace M17_Food4U.Models
 
         BaseDados bd;
 
+        internal double getSaldo()
+        {
+            double saldo = 0;
+            string sql = "SELECT saldo FROM users WHERE id = " + id;
+            DataTable dados = bd.devolveSQL(sql);
+            if (dados == null || dados.Rows.Count <= 0)
+                return saldo;
+
+            return double.Parse(dados.Rows[0]["saldo"].ToString());
+        }
+
         public User()
         {
             bd = new BaseDados();
@@ -294,6 +305,17 @@ namespace M17_Food4U.Models
 
             DataTable dados = bd.devolveSQL(sql);
             return dados;
+        }
+
+        public bool IsAddressFromUser(int address)
+        {
+            string sql = $"SELECT id FROM addresses WHERE id = {address} AND [user] = {id}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                return false;
+            return true;
         }
     }
 }
