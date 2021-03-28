@@ -60,6 +60,15 @@ namespace M17_Food4U.user
         protected global::System.Web.UI.WebControls.TextBox txt_data_nasc;
 
         /// <summary>
+        /// txt_newpassowrd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_newpassowrd;
+
+        /// <summary>
         /// btn_editar control.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,42 @@ namespace M17_Food4U.user
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb_erro2;
+
+        /// <summary>
+        /// txt_deposito control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_deposito;
+
+        /// <summary>
+        /// txt_emaillevantar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_emaillevantar;
+
+        /// <summary>
+        /// txt_moneylevantar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_moneylevantar;
+
+        /// <summary>
+        /// btn_levantarsaldo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_levantarsaldo;
 
         /// <summary>
         /// txt_address1 control.

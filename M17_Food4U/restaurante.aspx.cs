@@ -185,14 +185,16 @@ namespace M17_Food4U
                     throw new Exception("Número de estrelas inválido");
 
                 int id_restaurante = int.Parse(Request["id"].ToString());
-                int estrelas = int.Parse(Request.Cookies["estrelas"].Value);
-
-                Request.Cookies["estrelas"].Expires = DateTime.Now.AddDays(-1);
-
+                int id_user = int.Parse(Session["id_user"].ToString());
                 if (Session["id_user"] == null)
                     throw new Exception("Não estás logado.");
 
-                int id_user = int.Parse(Session["id_user"].ToString());
+                if (Restaurant.UserOwnsRestaurant(id_restaurante,id_user))
+                    throw new Exception("Não podes comentar no teu próprio restaurante");
+
+                int estrelas = int.Parse(Request.Cookies["estrelas"].Value);
+
+                Request.Cookies["estrelas"].Expires = DateTime.Now.AddDays(-1);
 
                 RestaurantComment restaurantComment = new RestaurantComment();
                 restaurantComment.user = id_user;
@@ -208,8 +210,11 @@ namespace M17_Food4U
             }
             catch (Exception erro)
             {
-                lb_erro_comentario.Text = erro.Message;
-                lb_erro_comentario.Visible = true;
+                /* lb_erro_comentario.Text = erro.Message;
+                 lb_erro_comentario.Visible = true;*/
+
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Erro','"+ erro.Message + "', 'error',4000)", true);
+                return;
             }
         }
     }

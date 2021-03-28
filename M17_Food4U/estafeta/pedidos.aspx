@@ -2,9 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2 class="mt-5">Pedidos em Espera</h2>
-    <p class="text-muted">Só podes aceitar um pedido de cada vez</p>
-    <asp:GridView OnRowDataBound="dgv_pedidos_RowDataBound" runat="server" EmptyDataText="Sem Pedidos" CssClass="table" ID="dgv_pedidos" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
+    
 
     <h2 class="mt-5">Pedido Aceite</h2>
     <p class="text-muted">Informações do pedido que aceitou</p>
@@ -28,6 +26,8 @@
         <p><b>Morada: </b><span id="lb_morada" runat="server"></span></p>
         <asp:GridView OnRowDataBound="dgv_pedidoinfo_RowDataBound" runat="server" EmptyDataText="Sem Menus" CssClass="table" ID="dgv_pedidoinfo" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
     </div>
+    <h2 class="mt-5">Pedidos em Espera</h2>
+    <p class="text-muted">Só podes aceitar um pedido de cada vez</p>
+    <asp:GridView OnRowDataBound="dgv_pedidos_RowDataBound" runat="server" EmptyDataText="Sem Pedidos" CssClass="table" ID="dgv_pedidos" HeaderStyle-BackColor="#212529" HeaderStyle-ForeColor="White"></asp:GridView>
 
-    
 </asp:Content>

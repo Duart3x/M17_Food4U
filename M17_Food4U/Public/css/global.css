@@ -329,3 +329,11 @@ h2 {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 10px;
 }
+
+
+.aviso-cookies{
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100vw;
+}

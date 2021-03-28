@@ -36,5 +36,24 @@ namespace M17_Food4U
             ShoppingCart.AlterarQuantidadeMenu(user, menu, quantidade);
         }
 
+        [WebMethod(EnableSession = true)]
+        public bool DepositarDinheiro(double valor)
+        {
+            int id_user = int.Parse(Session["id_user"].ToString());
+            Models.User user = new Models.User(id_user);
+            double saldo = user.getSaldo();
+
+            try
+            {
+                Transacao.DepositarDinheiro(id_user, saldo, valor);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
     }
 }

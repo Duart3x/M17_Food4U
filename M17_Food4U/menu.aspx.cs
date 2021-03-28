@@ -144,11 +144,15 @@ namespace M17_Food4U
 
                 int id_menu = int.Parse(Request["id"].ToString());
                 int estrelas = int.Parse(Request.Cookies["estrelas"].Value);
+                
 
                 if (Session["id_user"] == null)
                     throw new Exception("Não estás logado.");
 
                 int id_user = int.Parse(Session["id_user"].ToString());
+
+                if (Models.Menu.UserOwnsMenu(id_user, id_menu))
+                    throw new Exception("Não podes comentar num Menu que te pertence.");
 
                 MenuComment menuComment = new MenuComment();
                 menuComment.user = id_user;
@@ -166,8 +170,11 @@ namespace M17_Food4U
             }
             catch (Exception erro)
             {
-                lb_erro_comentario.Text = erro.Message;
-                lb_erro_comentario.Visible = true;
+                /*lb_erro_comentario.Text = erro.Message;
+                lb_erro_comentario.Visible = true;*/
+
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Erro','" + erro.Message + "', 'error',4000)", true);
+                return;
             }
             
                 

@@ -160,7 +160,7 @@ FROM orders WHERE client = {id_user};";
             return bd.devolveSQL(sql);
         }
 
-        public static DataTable GetOrdersEmProcessamentoSemEstafeta()
+        public static DataTable GetOrdersEmProcessamentoSemEstafeta(int id_estafeta)
         {
             BaseDados bd = new BaseDados();
             string sql = $@"SELECT orders.id,users1.[name] as Cliente,
@@ -173,7 +173,7 @@ FROM orders WHERE client = {id_user};";
                         ELSE 'Desconhecido'
                     END AS Estado,addresses.city as Cidade, addresses.cp as [CP], addresses.address as Morada , orders.createDate as [Data]
                     FROM orders, users as users1,  addresses
-                    WHERE orders.client = users1.id AND orders.courier is NULL AND orders.address = addresses.id AND orders.[state] not in (4,5)";
+                    WHERE orders.client = users1.id AND orders.courier is NULL AND orders.address = addresses.id AND orders.[state] not in (4,5) AND orders.client != {id_estafeta}";
 
             return bd.devolveSQL(sql);
         }

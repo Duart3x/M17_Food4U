@@ -60,6 +60,15 @@ namespace M17_Food4U
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
 
         /// <summary>
+        /// btn_recuperar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_recuperar;
+
+        /// <summary>
         /// div_erro control.
         /// </summary>
         /// <remarks>

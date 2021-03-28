@@ -1,7 +1,9 @@
 ﻿using M17_Food4U.Classes;
 using M17_Food4U.Models;
+using PayoutsSdk.Payouts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -15,6 +17,7 @@ namespace M17_Food4U.user
         const int GRID_TRANS_PAGE_SIZE = 10;
         const int GRID_PAGAM_PAGE_SIZE = 10;
         const int GRID_PEDIDOS_PAGE_SIZE = 10;
+        string newPasswordPage = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["perfil"] == null)
@@ -75,7 +78,7 @@ namespace M17_Food4U.user
         private void AtualizarTransacoes()
         {
             int id_user = int.Parse(Session["id_user"].ToString());
-            
+
             dgv_transacoes.DataSource = Transacao.GetTransacoesUser(id_user);
             dgv_transacoes.DataBind();
 
@@ -92,7 +95,7 @@ namespace M17_Food4U.user
             Models.User user = new Models.User(id_user);
 
             List<Address> moradas = user.getMoradas();
-            if(moradas.Count >= 1)
+            if (moradas.Count >= 1)
             {
                 txt_address1.Text = moradas[0].address;
                 txt_cidade1.Text = moradas[0].city;
@@ -179,11 +182,13 @@ namespace M17_Food4U.user
             txt_nome.Attributes.Remove("readonly");
             txt_nif.Attributes.Remove("readonly");
             txt_data_nasc.Attributes.Remove("readonly");
+            txt_newpassowrd.Attributes.Remove("readonly");
 
             txt_email.CssClass = "form-control w-75";
             txt_nome.CssClass = "form-control w-75";
             txt_nif.CssClass = "form-control w-75";
             txt_data_nasc.CssClass = "form-control w-75";
+            txt_newpassowrd.CssClass = "form-control w-75";
         }
 
         protected void btn_cancelar_Click(object sender, EventArgs e)
@@ -197,11 +202,14 @@ namespace M17_Food4U.user
             txt_nome.Attributes.Add("readonly", "true");
             txt_nif.Attributes.Add("readonly", "true");
             txt_data_nasc.Attributes.Add("readonly", "true");
+            txt_newpassowrd.Attributes.Add("readonly", "true");
+
 
             txt_email.CssClass = "form-control-plaintext w-75";
             txt_nome.CssClass = "form-control-plaintext w-75";
             txt_nif.CssClass = "form-control-plaintext w-75";
             txt_data_nasc.CssClass = "form-control-plaintext w-75";
+            txt_newpassowrd.CssClass = "form-control-plaintext w-75";
         }
         protected void btn_ConfirmarPassword_ServerClick(object sender, EventArgs e)
         {
@@ -219,6 +227,7 @@ namespace M17_Food4U.user
                     string email = txt_email.Text;
                     string nome = txt_nome.Text;
                     string nif = txt_nif.Text;
+                    string newPassword = txt_newpassowrd.Text;
                     DateTime data_nasc = DateTime.Parse(txt_data_nasc.Text);
 
                     if (email == String.Empty || email.Contains("@") == false || email.Contains(".") == false)
@@ -234,11 +243,16 @@ namespace M17_Food4U.user
                     if (nif.Trim().Length != 9)
                         throw new Exception("O NIF indicado não é válido. Deve ter 9 digitos.");
 
+                    if (newPassword != "")
+                        if (newPassword.Length <= 3)
+                            throw new Exception("Nova Password Inválida");
+
                     user.id = id_user;
                     user.email = email;
                     user.nome = nome;
                     user.nif = nif;
                     user.data_nasc = data_nasc;
+                    user.password = newPassword;
 
                     user.Atualizar();
 
@@ -251,12 +265,17 @@ namespace M17_Food4U.user
                     txt_nome.Attributes.Add("readonly", "true");
                     txt_nif.Attributes.Add("readonly", "true");
                     txt_data_nasc.Attributes.Add("readonly", "true");
+                    txt_newpassowrd.Attributes.Add("readonly", "true");
+
 
                     txt_email.CssClass = "form-control-plaintext w-75";
                     txt_nome.CssClass = "form-control-plaintext w-75";
                     txt_nif.CssClass = "form-control-plaintext w-75";
                     txt_data_nasc.CssClass = "form-control-plaintext w-75";
+                    txt_newpassowrd.CssClass = "form-control-plaintext w-75";
 
+                    txt_newpassowrd.Attributes["value"] = "";
+                    
                     AtualizarUser();
                 }
                 else
@@ -272,7 +291,7 @@ namespace M17_Food4U.user
                 div_erro.Attributes["class"] = "alert alert-danger";
                 div_erro.Visible = true;
             }
-            
+
 
         }
 
@@ -284,6 +303,8 @@ namespace M17_Food4U.user
                 string email = txt_email.Text;
                 string nome = txt_nome.Text;
                 string nif = txt_nif.Text;
+                string newPassword = txt_newpassowrd.Text;
+
                 DateTime data_nasc = DateTime.Parse(txt_data_nasc.Text);
 
                 if (email == String.Empty || email.Contains("@") == false || email.Contains(".") == false)
@@ -301,6 +322,12 @@ namespace M17_Food4U.user
                 if (nif.Trim().Length != 9)
                     throw new Exception("O NIF indicado não é válido. Deve ter 9 digitos.");
 
+                if (newPassword != "")
+                    if (newPassword.Length <= 3)
+                        throw new Exception("Nova Password Inválida");
+
+                txt_newpassowrd.Attributes.Add("value", newPassword);
+
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenModal", "openConfirmPassword()", true);
                 div_erro.Visible = false;
             }
@@ -317,7 +344,7 @@ namespace M17_Food4U.user
             btn_confirmar_morada1.Visible = true;
             btn_cancelar_morada1.Visible = true;
             btn_editar_morada1.Visible = false;
-            
+
 
             txt_address1.Attributes.Remove("readonly");
             txt_cidade1.Attributes.Remove("readonly");
@@ -640,6 +667,78 @@ namespace M17_Food4U.user
                 div_erro_morada3.Attributes["class"] = "alert alert-danger";
                 div_erro_morada3.Visible = true;
             }
+        }
+
+        protected void btn_levantarsaldo_Click(object sender, EventArgs e)
+        {
+            _ = levantar();
+            Response.Redirect(Request.RawUrl);
+        }
+
+        private async System.Threading.Tasks.Task levantar()
+        {
+            try
+            {
+                string emailPaypal = txt_emaillevantar.Text;
+                double valor = double.Parse(txt_moneylevantar.Text.Replace(".",","));
+
+                if (emailPaypal == String.Empty || emailPaypal.Contains("@") == false || emailPaypal.Contains(".") == false)
+                    throw new Exception("O email indicado não é válido.");
+
+                if (valor <= 0)
+                    throw new Exception("Valor indicado inválido");
+
+                int id_user = int.Parse(Session["id_user"].ToString());
+
+                Models.User user = new User(id_user);
+
+                double saldo = user.getSaldo();
+
+                if (saldo - valor < 0)
+                    throw new Exception("O seu saldo não permite executar esta ação!");
+
+                var body = new CreatePayoutRequest()
+                {
+                    SenderBatchHeader = new SenderBatchHeader()
+                    {
+                        EmailMessage = $"O teu levantamento foi sucedido, recebeste {valor}",
+                        EmailSubject = "Recebeste dinheiro da Food4U!!"
+                    },
+                    Items = new List<PayoutItem>(){
+                        new PayoutItem()
+                        {
+                            RecipientType="EMAIL",
+                            Amount=new Currency(){
+                            CurrencyCode="EUR",
+                            Value=valor.ToString().Replace(",","."),
+                        },
+                            Receiver= emailPaypal,
+                        }
+                    }
+                };
+
+                PayoutsPostRequest request = new PayoutsPostRequest();
+                request.RequestBody(body);
+                Transacao.LevantarDinheiro(id_user, saldo, valor);
+
+                var response = await CreatePayout.client().Execute(request);
+                var result = response.Result<CreatePayoutResponse>();
+
+
+                Debug.WriteLine("Status: {0}", result.BatchHeader.BatchStatus);
+                Debug.WriteLine("Batch Id: {0}", result.BatchHeader.PayoutBatchId);
+                Debug.WriteLine("Links:");
+                foreach (LinkDescription link in result.Links)
+                {
+                    Debug.WriteLine("\t{0}: {1}\tCall Type: {2}", link.Rel, link.Href, link.Method);
+                }
+            }
+            catch (Exception erro)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", $"ShowNotification('Erro','{erro.Message}', 'error')", true);
+
+            }
+
         }
     }
 }

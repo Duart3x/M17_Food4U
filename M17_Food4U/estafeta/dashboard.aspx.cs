@@ -20,7 +20,7 @@ namespace M17_Food4U.estafeta
             int id_estafeta = int.Parse(Session["id_user"].ToString());
             Estatisticas estatisticas = new Estatisticas();
             
-            lb_saldo.InnerText = estatisticas.GetTotalAngariado(id_estafeta).ToString("C2");
+            // lb_saldo.InnerText = estatisticas.GetTotalAngariado(id_estafeta).ToString("C2");
             lb_pedidosfinalizados.InnerText = estatisticas.getTotalPedidosFinalizados(id_estafeta).ToString();
 
         }

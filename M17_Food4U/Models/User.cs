@@ -23,6 +23,18 @@ namespace M17_Food4U.Models
         public DateTime driving_licenseValidity { get; set; }
         public DateTime createDate { get; set; }
 
+        internal void atualizarPassword(string guid, string novaPassword)
+        {
+            string sql = "UPDATE users SET password=HASHBYTES('SHA2_512',@password),lnkRecuperar=null, data_lnk=NULL WHERE lnkRecuperar=@lnk";
+
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@password",SqlDbType=SqlDbType.VarChar,Value=novaPassword},
+                new SqlParameter() {ParameterName="@lnk",SqlDbType=SqlDbType.VarChar,Value=guid },
+            };
+            bd.executaSQL(sql, parametros);
+        }
+
         BaseDados bd;
 
         internal double getSaldo()
@@ -69,6 +81,31 @@ namespace M17_Food4U.Models
             user.createDate = DateTime.Parse(dados.Rows[0]["createDate"].ToString());
 
             return user;
+        }
+
+        internal static DataTable GetUser(string email)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $@"SELECT * FROM users WHERE email = @email";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@email",SqlDbType=SqlDbType.VarChar,Value=email },
+            };
+
+            return bd.devolveSQL(sql,parametros);
+        }
+
+        public void recuperarPassword(string email, string guid)
+        {
+            string sql = "UPDATE users SET lnkRecuperar=@lnk, data_lnk = getdate() WHERE email=@email";
+
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@email",SqlDbType=SqlDbType.VarChar,Value=email },
+                new SqlParameter() {ParameterName="@lnk",SqlDbType=SqlDbType.VarChar,Value=guid },
+            };
+            bd.executaSQL(sql, parametros);
         }
 
         internal static void MudarPerfil(int id_user, int value)
@@ -174,7 +211,13 @@ namespace M17_Food4U.Models
 
         internal void Atualizar()
         {
-            string sql = "UPDATE users SET email = @email, name = @name, nif = @nif, data_nasc = @data_nasc WHERE id = @id_user";
+            string sql = "";
+
+            if (this.password == "")
+                sql = "UPDATE users SET email = @email, name = @name, nif = @nif, data_nasc = @data_nasc WHERE id = @id_user";
+            else
+                sql = "UPDATE users SET email = @email, name = @name, nif = @nif, data_nasc = @data_nasc, password = HASHBYTES('SHA2_512',@password) WHERE id = @id_user";
+
             List<SqlParameter> parametros = new List<SqlParameter>()
             {
                 new SqlParameter()
@@ -208,6 +251,13 @@ namespace M17_Food4U.Models
                     Value=this.id
                 }
             };
+            if (this.password != "")
+                parametros.Add(new SqlParameter()
+                {
+                    ParameterName = "@password",
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                    Value = this.password
+                });
 
             bd.executaSQL(sql, parametros);
         }

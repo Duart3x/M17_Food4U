@@ -11,6 +11,7 @@ namespace M17_Food4U.admin
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        NewsLetter news = new NewsLetter();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
@@ -31,8 +32,8 @@ namespace M17_Food4U.admin
             lb_pedidosfinished.InnerHtml = estatisticas.getTotalPedidosFinalizados().ToString();
 
             DataTable MenuMaisPedido = estatisticas.getMenuMaisPedido();
-            if(MenuMaisPedido != null)
-                lb_menumaispedido.InnerHtml = MenuMaisPedido.Rows[0]["title"].ToString()+ " - " + MenuMaisPedido.Rows[0]["restaurante"].ToString()+ " - " + MenuMaisPedido.Rows[0]["NumPedidos"].ToString() + " Pedidos";
+            if (MenuMaisPedido != null)
+                lb_menumaispedido.InnerHtml = MenuMaisPedido.Rows[0]["title"].ToString() + " - " + MenuMaisPedido.Rows[0]["restaurante"].ToString() + " - " + MenuMaisPedido.Rows[0]["NumPedidos"].ToString() + " Pedidos";
 
             DataTable MenuRating = estatisticas.getMenuMaisRating();
             if (MenuRating != null)
@@ -51,7 +52,7 @@ namespace M17_Food4U.admin
                 lb_menurating.InnerHtml = MenuRating.Rows[0]["title"].ToString() + " - " + MenuRating.Rows[0]["restaurante"].ToString() + " - " + estrelasHtml;
             }
             DataTable RestauranteRating = estatisticas.GetRestauranteMaisRating();
-            if(RestauranteRating != null)
+            if (RestauranteRating != null)
             {
                 int estrelas = int.Parse(RestauranteRating.Rows[0]["NumStars"].ToString());
 
@@ -66,7 +67,67 @@ namespace M17_Food4U.admin
 
                 lb_restaurantrating.InnerHtml = RestauranteRating.Rows[0]["name"].ToString() + " - " + estrelasHtml;
             }
-            
+
+        }
+
+        protected void btn_menusmaisvendidos_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string email = news.EnviarMenusMaisVendidos(Request.Url.Authority);
+                div_emailenviado.InnerHtml = email;
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Emails enviados com sucesso','Visualisa o email enviado no fundo da página', 'success')", true);
+
+            }
+            catch (Exception erro)
+            {
+
+            }
+
+        }
+        protected void btn_menusmenosvendidos_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string email =  news.EnviarMenusMenosVendidos(Request.Url.Authority);
+                div_emailenviado.InnerHtml = email;
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Emails enviados com sucesso','Visualisa o email enviado no fundo da página', 'success')", true);
+
+            }
+            catch (Exception erro)
+            {
+
+            }
+        }
+        protected void btn_carrinhocheio_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string email =  news.EnviarCarrinhoCheio(Request.Url.Authority);
+                div_emailenviado.InnerHtml = email;
+
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Emails enviados com sucesso','Visualisa o email enviado no fundo da página', 'success')", true);
+
+            }
+            catch (Exception erro)
+            {
+
+            }
+        }
+        protected void btn_saldoplataforma_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                string email = news.EnviarClientesSaldo(Request.Url.Authority);
+                div_emailenviado.InnerHtml = email;
+
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Emails enviados com sucesso','Visualisa o email enviado no fundo da página', 'success')", true);
+
+            }
+            catch (Exception erro)
+            {
+
+            }
         }
     }
 }

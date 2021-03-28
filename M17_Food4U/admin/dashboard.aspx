@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h2 class="mt-5">Dashboard</h2>
+    <p class="text-muted">Informações sobre o estado da aplicação</p>
     <div class="border p-3 shadow">
         <p><b>Saldo depositado na plataforma: </b><span id="lb_saldo" runat="server"></span></p>
         <hr />
@@ -20,6 +21,23 @@
         <p><b>Menu com mais rating: </b><span id="lb_menurating" runat="server"></span></p>
         <p><b>Restaurante com mais rating: </b><span id="lb_restaurantrating" runat="server"></span></p>
     </div>
-    
+
+    <h2 class="mt-5">News Letter</h2>
+    <p class="text-muted">Envio de emails publicitários/informativos para os clientes</p>
+    <div class="border p-3 shadow mt-4 d-flex flex-column w-100 mb-4">
+        <div class="d-flex justify-content-between w-100">
+            <button class="btn btn-outline-success" style="height: 300px; max-width: 300px;" id="btn_menusmaisvendidos" onserverclick="btn_menusmaisvendidos_ServerClick" runat="server">Enviar emails a publicitar os 3 menus mais vendidos</button>
+            <button class="btn btn-outline-success" style="height: 300px; max-width: 300px;" id="btn_menusmenosvendidos" onserverclick="btn_menusmenosvendidos_ServerClick" runat="server">Enviar emails a publicitar os 3 menus menos vendidos</button>
+            <button class="btn btn-outline-success" style="height: 300px; max-width: 300px;" id="btn_carrinhocheio" onserverclick="btn_carrinhocheio_ServerClick" runat="server">Enviar emails a avisar clientes que têm no carrinho pedidos pendentes</button>
+        </div>
+        <div class="d-flex justify-content-between w-100 mt-3">
+            <button class="btn btn-outline-success" style="height: 300px; max-width: 300px;" id="btn_saldoplataforma" onserverclick="btn_saldoplataforma_ServerClick" runat="server">Enviar emails a clientes a avisar que têm saldo na plataforma</button>
+        <!--<button class="btn btn-outline-success" style="height: 300px; max-width: 300px;"></button>
+            <button class="btn btn-outline-success" style="height: 300px; max-width: 300px;"></button>-->
+        </div>
+    </div>
+    <div id="div_emailenviado" runat="server" class="p-3 shadow border">
+        
+    </div>
 
 </asp:Content>

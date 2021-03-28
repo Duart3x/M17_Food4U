@@ -27,6 +27,7 @@ namespace M17_Food4U
             if(dados == null || dados.Rows.Count <= 0)
             {
                 lb_semprodutos.Visible = true;
+                btn_confirmar.Visible = false;
             }
             else
             {
@@ -103,7 +104,11 @@ namespace M17_Food4U
             int morada = -1;
 
             if (Request.Cookies["morada"] == null || !int.TryParse(Request.Cookies["morada"].Value.ToString(), out morada))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Erro','Selecione uma morada válida', 'error')", true);
                 return;
+            }
+            
 
             Request.Cookies["morada"].Expires = DateTime.Now.AddDays(-1);
             int id_user = int.Parse(Session["id_user"].ToString());
@@ -111,9 +116,21 @@ namespace M17_Food4U
             Models.User user = new User(id_user);
 
             if (!user.IsAddressFromUser(morada))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Erro','Selecione uma morada válida', 'error')", true);
                 return;
+            }
 
             double usersaldo = user.getSaldo();
+
+            DataTable dados = ShoppingCart.GetCarrinhoFromUser(id_user);
+
+
+            if (dados == null || dados.Rows.Count <= 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Erro','Sem produtos no carrinho', 'error')", true);
+                return;
+            }
 
             double totalcarrinho = ShoppingCart.GetCarrinhoValue(id_user);
 
@@ -122,10 +139,17 @@ namespace M17_Food4U
                 ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Erro','Saldo insuficiente', 'error')", true);
                 return;
             }
+            Pagamento pagamento = new Pagamento();
+            pagamento.user = id_user;
 
+            pagamento.valor = totalcarrinho;
+            pagamento.saldo = usersaldo;
+            
             int id_order = Orders.CriarPedido(id_user, morada);
+            
+            pagamento.order = id_order;
+            pagamento.PagarOrder();
 
-            DataTable dados = ShoppingCart.GetCarrinhoFromUser(id_user);
             OrdersMenus ordersMenus = new OrdersMenus();
 
             foreach (DataRow row in dados.Rows)
@@ -141,8 +165,7 @@ namespace M17_Food4U
 
             ShoppingCart.DeleteCarrinho(id_user);
 
-
-            ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Sucesso','Compra efetuada com sucesso', 'success')", true);
+            ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowCartNotification('Sucesso','Compra efetuada com sucesso', 'success')", true);
         }
     }
 }

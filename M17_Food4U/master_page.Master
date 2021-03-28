@@ -62,7 +62,7 @@
                     <div class="d-flex align-items-center justify-content-end">
                         <span id="span_saldo" runat="server" visible="false">
                             <b>Saldo: </b>
-                           <asp:Label Text="" ID="lb_saldouser" runat="server" />
+                            <asp:Label Text="" ID="lb_saldouser" runat="server" />
                         </span>
                         <div class="shop-cart mr-4">
                             <button id="btn_user" onserverclick="btn_user_Click" causesvalidation="false" runat="server" class="border-0 bg-transparent"><i class='far fa-user' style='font-size: 25px; cursor: pointer;'></i></button>
@@ -84,10 +84,9 @@
                         <p>Total ( <span id="lb_totalitems" runat="server">0</span> Item ):  <span runat="server" id="lb_shopcard_total"></span></p>
                     </div>
                     <div class="list_products" id="list_products" runat="server">
-
                     </div>
-                    <footer  class="mt-2">
-                        <asp:Button Text="Finalizar" PostBackUrl="~/checkout.aspx" CssClass="btn btn-block btn-outline-success" runat="server" />
+                    <footer class="mt-2">
+                        <a href="/checkout.aspx" class="btn btn-block btn-outline-success">Finalizar</a>
                     </footer>
                 </div>
             </div>
@@ -95,7 +94,14 @@
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
-        </div>
+            <div runat="server" id="div_aviso" class="aviso-cookies bg-secondary text-white">
+                <div class="container h-100 d-flex align-items-center justify-content-center">
+                    <span>Este site utiliza cookies.</span>
+                    <asp:Button runat="server" ID="bt1"
+                        CssClass="btn btn-success  ml-5"
+                        Text="Aceitar" OnClick="bt1_Click" />
+                </div>
+            </div>
     </form>
 </body>
 <script>
@@ -233,7 +239,7 @@
             $('.js-example-data-ajax').trigger('change'); // Notify any JS components that the value changed
         })
 
-        
+
     });
     function removerproduct(menu, user) {
         /*  $.ajax({
@@ -250,24 +256,24 @@
                 user: user,
                 quantidade: -1
             });
-        $.toast({
-            text: "Produto removido com sucesso",
-            heading: 'Removido com sucesso',
-            icon: 'success',
-            showHideTransition: 'fade',
-            allowToastClose: false,
-            hideAfter: 1000,
-            stack: 10,
-            position: 'bottom-left',
+            $.toast({
+                text: "Produto removido com sucesso",
+                heading: 'Removido com sucesso',
+                icon: 'success',
+                showHideTransition: 'fade',
+                allowToastClose: false,
+                hideAfter: 1000,
+                stack: 10,
+                position: 'bottom-left',
 
-            textAlign: 'left',
-            loader: false,
-            loaderBg: '#9EC600',
-            beforeHide: function () {
-                location.reload();
-            }
-        });
-    }
+                textAlign: 'left',
+                loader: false,
+                loaderBg: '#9EC600',
+                beforeHide: function () {
+                    location.reload();
+                }
+            });
+        }
         else {
             var cookie = getCookie("carrinho")
             var values = cookie.split('&')
@@ -276,7 +282,7 @@
                 var menulist = menus[0]
                 var quantity = menus[1]
                 if (Number(menulist) == menu) {
-                    if (quantity - 1 <= 0) 
+                    if (quantity - 1 <= 0)
                         values.splice(i, 1)
                     else {
                         var newvalues = values[i].replace('=' + quantity, '=' + (quantity - 1))
@@ -286,8 +292,8 @@
             }
 
             document.cookie = "carrinho" + "=" + values.join('&');
-           
-            
+
+
 
             $.toast({
                 text: "Produto removido com sucesso",

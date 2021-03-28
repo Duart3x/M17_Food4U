@@ -80,7 +80,7 @@ namespace M17_Food4U.Models
                 {
                     ParameterName="@price",
                     SqlDbType=System.Data.SqlDbType.Decimal,
-                    Value=this.price
+                    Value= (this.price) * 1.6
                 },
             };
             DataTable dados = bd.devolveSQL(sql, parametros);
@@ -151,6 +151,20 @@ namespace M17_Food4U.Models
                                             WHERE menus.enabled = 1 AND restaurants.enabled = 1 AND menus.title LIKE @termo", parametros);
             
             return dados;
+        }
+
+        internal static bool UserOwnsMenu(int id_user, int id_menu)
+        {
+            BaseDados bd = new BaseDados();
+
+            string sql = $@"SELECT menus.id FROM menus INNER JOIN restaurants ON menus.restaurant = restaurants.id WHERE menus.id = {id_menu} AND restaurants.owner = {id_user}";
+
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count <= 0 || dados.Rows.Count > 1)
+                return false;
+
+            return true;
         }
 
         internal void Atualizar()

@@ -90,6 +90,18 @@ namespace M17_Food4U.Classes
 
             return int.Parse(dados.Rows[0]["total"].ToString());
         }
+
+        public DataTable getClientesComCarrinho()
+        {
+            string sql = "SELECT users.email, menus.title, menus.[description], shopping_carts.quantity FROM shopping_carts INNER JOIN users ON shopping_carts.[user] = users.id INNER JOIN menus ON shopping_carts.menu = menus.id ORDER BY email";
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0)
+                return null;
+
+            return dados;
+        }
+
         #endregion
 
         #region Pedidos
@@ -165,6 +177,36 @@ FROM orders_menus INNER JOIN menus on orders_menus.menu = menus.id INNER JOIN re
         }
 
         /// <summary>
+        /// Devolve os 3 menus mais vendidos
+        /// </summary>
+        /// <returns>title, stars, restaurante</returns>
+        public DataTable get3MenusMaisvendidos()
+        {
+            string sql = @"SELECT TOP 3 menu as id_menu,menus.title, menus.[description], COUNT(menu) as vendas FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id GROUP BY menu, menus.title, menus.[description] ORDER BY COUNT(orders_menus.menu) DESC";
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0)
+                return null;
+
+            return dados;
+        }
+
+        /// <summary>
+        /// Devolve os 3 menus menos vendidos
+        /// </summary>
+        /// <returns>title, stars, restaurante</returns>
+        public DataTable get3MenusMenosvendidos()
+        {
+            string sql = @"SELECT TOP 3 menu as id_menu,menus.title, menus.[description], COUNT(menu) as vendas FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id GROUP BY menu, menus.title, menus.[description] ORDER BY COUNT(orders_menus.menu) ASC";
+            DataTable dados = bd.devolveSQL(sql);
+
+            if (dados == null || dados.Rows.Count == 0)
+                return null;
+
+            return dados;
+        }
+
+        /// <summary>
         /// Devolve o restaurante mais votado
         /// </summary>
         /// <returns>name, NumStars</returns>
@@ -181,7 +223,7 @@ FROM orders_menus INNER JOIN menus on orders_menus.menu = menus.id INNER JOIN re
         }
         #endregion
 
-        #region Estafetas
+      /*  #region Estafetas
         public double GetTotalAngariado(int estafeta)
         {
             string sql = $"SELECT IIF(SUM(valor) is null, 0, SUM(valor)) as total FROM pagamentos WHERE courier = {estafeta}";
@@ -193,6 +235,6 @@ FROM orders_menus INNER JOIN menus on orders_menus.menu = menus.id INNER JOIN re
 
             return double.Parse(dados.Rows[0]["total"].ToString());
         }
-        #endregion
+        #endregion*/
     }
 }

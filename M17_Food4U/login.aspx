@@ -17,6 +17,7 @@
                     <asp:TextBox TextMode="Password" class="form-control" ID="txt_password" placeholder="Password" runat="server" />
                     <asp:RequiredFieldValidator ValidationGroup='val_login' ID="RequiredFieldValidator2" runat="server" ErrorMessage="Campo Obrigratório" ControlToValidate="txt_password" CssClass="form-text text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
                 </div>
+                <asp:Button Text="Recuperar Password" CssClass="btn btn-link" ID="btn_recuperar" OnClick="btn_recuperar_Click" runat="server" />
                 <div class="alert alert-danger" visible="false" id="div_erro" runat="server">
                     <asp:Label ID="lb_erro"  Text="" runat="server" />
                 </div>

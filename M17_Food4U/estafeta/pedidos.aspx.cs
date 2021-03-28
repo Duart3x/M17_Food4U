@@ -132,8 +132,8 @@ namespace M17_Food4U.estafeta
             dgv_pedidos.Columns.Clear();
             dgv_pedidos.DataSource = null;
             dgv_pedidos.DataBind();
-
-            DataTable dados = Orders.GetOrdersEmProcessamentoSemEstafeta();
+            int id_estafeta = int.Parse(Session["id_user"].ToString());
+            DataTable dados = Orders.GetOrdersEmProcessamentoSemEstafeta(id_estafeta);
             dgv_pedidos.DataSource = dados;
             dgv_pedidos.AutoGenerateColumns = false;
 
@@ -197,7 +197,32 @@ namespace M17_Food4U.estafeta
                 if(estado == 3 || estado == 4)
                 {
                     if (Orders.IsOrderMenusCompleted(id_order))
+                    {
                         Orders.ToggleState(id_order, estado);
+                        if(estado == 4)
+                        {
+                            Pagamento pagamento = new Pagamento();
+                            pagamento.valor = 2.5;
+                            pagamento.PagarEstafeta(id_estafeta);
+
+                            ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Pagamento Recebido','Recebeste o valor de 2,50€ na tua conta.', 'success')", true);
+
+                            DataTable dados2 = OrdersMenus.getOrdersMenusFromOrder(id_order);
+
+                            foreach (DataRow row in dados2.Rows)
+                            {
+                                int id_restaurante = int.Parse(row["id_restaurante"].ToString());
+                                double preco = double.Parse(row["preco"].ToString());
+
+                                pagamento.valor = preco / 1.6;
+                                pagamento.PagarRestaurante(id_restaurante);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", "ShowNotification('Por Favor Aguarde','Os menus ainda não estão finalizados, aguarde!', 'error')", true);
+                    }
                 }
                 else
                     Orders.ToggleState(id_order, estado);

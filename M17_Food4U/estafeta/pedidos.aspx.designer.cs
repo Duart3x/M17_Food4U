@@ -15,15 +15,6 @@ namespace M17_Food4U.estafeta
     {
 
         /// <summary>
-        /// dgv_pedidos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgv_pedidos;
-
-        /// <summary>
         /// div_pedidoaceite control.
         /// </summary>
         /// <remarks>
@@ -112,5 +103,14 @@ namespace M17_Food4U.estafeta
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView dgv_pedidoinfo;
+
+        /// <summary>
+        /// dgv_pedidos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgv_pedidos;
     }
 }

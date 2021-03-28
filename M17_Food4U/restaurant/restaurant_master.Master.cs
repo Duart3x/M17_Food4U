@@ -16,6 +16,10 @@ namespace M17_Food4U.restaurant
             if(Session["perfil"] == null || Session["perfil"].ToString() != "1")
                 Response.Redirect("~/index.aspx");
 
+            HttpCookie cookie = Request.Cookies["allow-cookies"];
+            if (cookie != null)
+                div_aviso.Visible = false;
+
             if (IsPostBack)
                 return;
             
@@ -32,7 +36,14 @@ namespace M17_Food4U.restaurant
             lb_restsaldo.Text = restaurant.saldo.ToString("C2");
 
         }
-
+        protected void bt1_Click(object sender, EventArgs e)
+        {
+            //criar o cookie e enviar para o browser
+            div_aviso.Visible = false;
+            HttpCookie novo = new HttpCookie("allow-cookies");
+            novo.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Add(novo);
+        }
         private void AtualizarRestaurantes()
         {
             try

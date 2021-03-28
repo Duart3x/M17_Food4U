@@ -25,14 +25,14 @@ function ShowCartNotification(title,message,type) {
     });
 }
 
-function ShowNotification(title, message, type) {
+function ShowNotification(title, message, type, time = 3000) {
     $.toast({
         text: message,
         heading: title,
         icon: type,
         showHideTransition: 'fade',
         allowToastClose: false,
-        hideAfter: 3000,
+        hideAfter: time,
         stack: 10,
         position: 'top-right',
         textAlign: 'left',

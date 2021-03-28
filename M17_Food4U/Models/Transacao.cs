@@ -30,5 +30,79 @@ namespace M17_Food4U.Models
 
             return bd.devolveSQL(sql);
         }
+
+        public static void DepositarDinheiro(int id_user, double saldo, double valor)
+        {
+            BaseDados bd = new BaseDados();
+
+            var transacao = bd.iniciarTransacao(IsolationLevel.Serializable);
+
+            try
+            {
+                string sql = $"UPDATE users SET saldo = (saldo + {valor.ToString().Replace(",", ".")}) WHERE id = {id_user}";
+
+                bd.executaSQL(sql, new List<System.Data.SqlClient.SqlParameter>(), transacao);
+
+                sql = $@"INSERT INTO transacoes([user],[source],saldo,valor) 
+                    VALUES({id_user},'Depósito PayPal', {saldo.ToString().Replace(",", ".")},{valor.ToString().Replace(",", ".")})";
+
+                bd.executaSQL(sql, new List<System.Data.SqlClient.SqlParameter>(), transacao);
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw erro;
+            }
+            
+        }
+
+        internal static void LevantarDinheiro(int id_user, double saldo, double valor)
+        {
+            BaseDados bd = new BaseDados();
+
+            var transacao = bd.iniciarTransacao(IsolationLevel.Serializable);
+
+            try
+            {
+                string sql = $"UPDATE users SET saldo = (saldo - {valor.ToString().Replace(",", ".")}) WHERE id = {id_user}";
+
+                bd.executaSQL(sql, new List<System.Data.SqlClient.SqlParameter>(), transacao);
+
+                sql = $@"INSERT INTO transacoes([user],[source],saldo,valor) 
+                    VALUES({id_user},'Levantamento PayPal', {saldo.ToString().Replace(",", ".")},{valor.ToString().Replace(",", ".")})";
+
+                bd.executaSQL(sql, new List<System.Data.SqlClient.SqlParameter>(), transacao);
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw erro;
+            }
+        }
+
+        internal static void LevantarDinheiroRestaurante(int id_restaurante, double valor)
+        {
+            BaseDados bd = new BaseDados();
+
+            var transacao = bd.iniciarTransacao(IsolationLevel.Serializable);
+
+            try
+            {
+                string sql = $"UPDATE restaurants SET saldo = (saldo - {valor.ToString().Replace(",", ".")}) WHERE id = {id_restaurante}";
+
+                bd.executaSQL(sql, new List<System.Data.SqlClient.SqlParameter>(), transacao);
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw erro;
+            }
+        }
     }
 }

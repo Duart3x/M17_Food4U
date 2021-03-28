@@ -13,9 +13,20 @@ namespace M17_Food4U.Admin
         {
             if (Session["perfil"] == null || Session["perfil"].ToString() != "0")
                 Response.Redirect("~/index.aspx");
-
+            HttpCookie cookie = Request.Cookies["allow-cookies"];
+            if (cookie != null)
+                div_aviso.Visible = false;
             if (IsPostBack)
                 return;
+        }
+
+        protected void bt1_Click(object sender, EventArgs e)
+        {
+            //criar o cookie e enviar para o browser
+            div_aviso.Visible = false;
+            HttpCookie novo = new HttpCookie("allow-cookies");
+            novo.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Add(novo);
         }
         protected void btn_user_Click(object sender, EventArgs e)
         {

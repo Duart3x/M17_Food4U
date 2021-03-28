@@ -4,8 +4,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h2 class="mt-5">Dashboard</h2>
     <div class="p-3 border shadow">
-        <p><b>Dinheiro angariado: </b><span id="lb_saldo" runat="server"></span></p>
-        <hr />
+       <!-- <p><b>Dinheiro angariado: </b><span id="lb_saldo" runat="server"></span></p>
+        <hr />-->
         <p><b>Total pedidos finalizados: </b><span id="lb_pedidosfinalizados" runat="server"></span></p>
 
     </div>

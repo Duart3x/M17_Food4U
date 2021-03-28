@@ -15,10 +15,23 @@ namespace M17_Food4U
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            HttpCookie cookie = Request.Cookies["allow-cookies"];
+            if (cookie != null)
+                div_aviso.Visible = false;
+
             if (IsPostBack)
                 return;
             AtualizaCarrinho();
         }
+        protected void bt1_Click(object sender, EventArgs e)
+        {
+            //criar o cookie e enviar para o browser
+            div_aviso.Visible = false;
+            HttpCookie novo = new HttpCookie("allow-cookies");
+            novo.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Add(novo);
+        }
+
 
         private void AtualizaCarrinho()
         {

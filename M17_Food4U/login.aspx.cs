@@ -2,6 +2,7 @@
 using M17_Food4U.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -59,5 +60,43 @@ namespace M17_Food4U
             
         }
 
+        protected void btn_recuperar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string email = txt_email.Text.Trim();
+                if (email.Length == 0)
+                    throw new Exception("Erro no email");
+                Models.User utilizador = new Models.User();
+
+                DataTable dados = Models.User.GetUser(email);
+                
+                if (dados == null || dados.Rows.Count == 0 || dados.Rows.Count > 1)
+                    throw new Exception("Erro no email");
+
+                Guid g = new Guid();
+                utilizador.recuperarPassword(email, g.ToString());
+
+                string mensagem = "Clique no link para recuperar a sua passowrd. \n";
+                mensagem += "<a href='http://" + Request.Url.Authority + "/recuperarPassword.aspx?";
+                mensagem += "id=" + Server.UrlEncode(g.ToString()) + "'>Clique aqui</a>";
+
+                string ppassword = ConfigurationManager.AppSettings["pwdEmail"].ToString();
+                string meuEmail = ConfigurationManager.AppSettings["Email"].ToString();
+
+                Helper.enviarMail(meuEmail, ppassword, email, "Recuperar Password", mensagem);
+
+                /*lb_erro.Text = "Foi enviado um email de recuperação de password";
+                div_erro.Attributes["class"] = "alert alert-success";
+                div_erro.Visible = true;*/
+
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", $"ShowNotification('Email enviado com sucesso','Foi lhe enviado um email para recuperar a sua password.', 'success')", true);
+            }
+            catch (Exception erro)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "MostrarNotificação", $"ShowNotification('Erro','{erro.Message}', 'error')", true);
+
+            }
+        }
     }
 }

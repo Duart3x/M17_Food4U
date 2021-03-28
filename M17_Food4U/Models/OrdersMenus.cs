@@ -67,7 +67,7 @@ namespace M17_Food4U.Models
                     WHEN orders_menus.[state] = 2 THEN 'A ser preparado'
                     WHEN orders_menus.[state] = 3 THEN 'Concluído'
                     ELSE 'Desconhecido'
-                END AS Estado, restaurants.name as nome_restaurante,restaurants.city as cidade_restaurante,restaurants.address as morada_restaurante,restaurants.cp as cp_restaurante FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id INNER JOIN restaurants ON menus.restaurant = restaurants.id WHERE [order] = {id_order}";
+                END AS Estado,menus.price as preco,restaurants.id as id_restaurante ,restaurants.name as nome_restaurante,restaurants.city as cidade_restaurante,restaurants.address as morada_restaurante,restaurants.cp as cp_restaurante FROM orders_menus INNER JOIN menus ON orders_menus.menu = menus.id INNER JOIN restaurants ON menus.restaurant = restaurants.id WHERE [order] = {id_order}";
 
             return bd.devolveSQL(sql);
         }
